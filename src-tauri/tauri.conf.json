@@ -13,8 +13,12 @@
     "windows": [
       {
         "title": "color-picker",
-        "width": 800,
-        "height": 600
+        "width": 500,
+        "height": 550,
+        "label": "main",
+        "fullscreen": false,
+        "resizable": false,
+        "maximizable": false
       }
     ],
     "security": {
