@@ -1,9 +1,43 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import logo from '@/assets/colorPickleLogo.png';
+
+const messageSauvegarde = "Données sauvegardées!"
+</script>
+
 
 <template>
     <nav>
-        <RouterLink :to="{name: 'accueil'}">Accueil</RouterLink>
-        <RouterLink :to="{name: 'palettes'}">Palettes</RouterLink>
-        <RouterLink :to="{name: 'utilitaires'}">Utilitaires</RouterLink>
+
+        <div class="flex transition ">
+            <div class="bg-black/20 rounded-full w-24 h-24 min-w-24 flex flex-1 justify-center items-center m-4 hover:border-4 hover:border-solid hover:border-black/30">
+                <RouterLink :to="{name: 'accueil'}"><img class="w-16 mix-blend-overlay" :src="logo" alt="Logo"></RouterLink>
+            </div>
+
+
+            <div class="flex items-start justify-end m-4 w-full">
+                <div class="flex">
+                    <div class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 
+                    hover:border-solid hover:border-black/30">
+                        <RouterLink :to="{name: 'palettes'}"><i class="fa-solid fa-swatchbook fa-2xl mix-blend-overlay"></i></RouterLink>
+                    </div>
+                    <div class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 mix-blend-overlay 
+                    hover:border-4 hover:border-solid hover:border-black/30">
+
+                    <!-- Le bouton de sauvegarde ne fait qu'envoyer un console.log pour le moment -->
+                    
+                        <button @click="console.log(messageSauvegarde)"><i class="fa-solid fa-floppy-disk fa-2xl"></i></button>
+                    </div>
+                    <div class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 mix-blend-overlay 
+                    hover:border-4 hover:border-solid hover:border-black/30">
+                        <RouterLink :to="{name: 'utilitaires'}"><i class="fa-solid fa-palette fa-2xl"></i></RouterLink>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </nav>
 </template>
+
+<style>
+    
+</style>
