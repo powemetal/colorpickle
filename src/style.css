@@ -5,12 +5,14 @@ le color picker devrait changer la valeur de --color-bg
 si la couleur est sombre la couleur de texte a utiliser serait --color-text-light
 sinon --color-text-dark*/
 :root {
-  --color-bg: #415f42;
+  --color-bg: #415F42;
   --color-text-light: white;
   --color-text-dark: black;
 }
 
-html, body, #app {
+html,
+body,
+#app {
   background-color: var(--color-bg);
   color: var(--color-text-light);
 }

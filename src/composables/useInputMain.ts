@@ -1,15 +1,17 @@
 import { ref, watch } from "vue";
 import { useMessage } from "./useMessage";
 import { Palette } from "../types/palette";
+import useColorPicker from "./useColorPicker";
 
 const { afficherMessage } = useMessage();
+const { ouvrirPipette } = useColorPicker();
 
-export function useColorPicker() {
-  const codeHex = ref("415f42");
+export function useInputMain() {
+  const codeHex = ref("415F42");
   const displayValue = ref(codeHex.value);
-  const r = ref(255);
-  const g = ref(255);
-  const b = ref(255);
+  const r = ref(65);
+  const g = ref(95);
+  const b = ref(66);
   const paletteCourante: Palette = {
     id: 1,
     nom: "Design",
@@ -17,7 +19,7 @@ export function useColorPicker() {
     createdAt: new Date(Date.now()),
   };
 
-  watch(displayValue, (newValue) => {
+  watch(codeHex, (newValue) => {
     document.documentElement.style.setProperty("--color-bg", `#${newValue}`);
   });
 
@@ -58,6 +60,21 @@ export function useColorPicker() {
     }
   }
 
+  async function copierAuPressePapier(text: string) {
+    try {
+      await navigator.clipboard.writeText(text);
+      afficherMessage("Code hex copié avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de la copie du texte :", error);
+    }
+  }
+
+  async function recupererCouleurPick() {
+    const couleur = await ouvrirPipette();
+    if (!couleur) return;
+    codeHex.value = couleur;
+  }
+
   return {
     displayValue,
     r,
@@ -67,6 +84,8 @@ export function useColorPicker() {
     onSliderChange,
     onInput,
     onChange,
+    copierAuPressePapier,
+    recupererCouleurPick,
   };
 }
 
@@ -83,13 +102,4 @@ function calculerValeursRGB(codeHex: string) {
 
 function isValidHex(value: string): boolean {
   return /^[0-9A-Fa-f]{6}$/.test(value);
-}
-
-export async function copierAuPressePapier(text: string) {
-  try {
-    await navigator.clipboard.writeText(text);
-    afficherMessage("Code hex copié avec succès !");
-  } catch (error) {
-    console.error("Erreur lors de la copie du texte :", error);
-  }
 }
