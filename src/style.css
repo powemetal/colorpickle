@@ -31,9 +31,9 @@ body {
   flex-direction: column;
   height: 100%;
 }
-/* 
-.colormode {
-  mask-mode: ;
-}
- */
 
+h2 {
+  font-weight: 600;
+  font-size: x-large;
+  justify-content: start;
+}
