@@ -1,5 +1,6 @@
 import { ref, watch } from "vue";
 import { useMessage } from "./useMessage";
+import { Palette } from "../types/palette";
 
 const { afficherMessage } = useMessage();
 
@@ -9,6 +10,12 @@ export function useColorPicker() {
   const r = ref(255);
   const g = ref(255);
   const b = ref(255);
+  const paletteCourante: Palette = {
+    id: 1,
+    nom: "Design",
+    couleurs: [],
+    createdAt: new Date(Date.now()),
+  };
 
   watch(displayValue, (newValue) => {
     document.documentElement.style.setProperty("--color-bg", `#${newValue}`);
@@ -56,6 +63,7 @@ export function useColorPicker() {
     r,
     g,
     b,
+    paletteCourante,
     onSliderChange,
     onInput,
     onChange,
