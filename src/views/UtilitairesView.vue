@@ -1,8 +1,7 @@
 <script setup lang="ts">
 
 import {ref, computed } from "vue";
-import {copierAuPressePapier} from "../composables/useInputMain";
-import { useColorPicker } from "../composables/useInputMain";
+import { useColorPicker, copierAuPressePapier } from "../composables/useInputMain";
 
 // const { couleurPicked } = useColorPicker()
 // const { triade1Value, r, g, b} = 
@@ -16,7 +15,6 @@ const couleurTest3 = "19BBB8";
 const estFonce = false;
 
 
-
 </script>
 
 <template>
@@ -28,8 +26,8 @@ const estFonce = false;
             backgroundColor: '#' + couleurTest1,
             borderColor: estFonce ? 'var(--color-text-light)' : 'var(--color-text-dark)'}">
 
-            <button class="flex grow justify-center items-center">
-                <span>#</span>code Hexa triade1
+            <button @click="copierAuPressePapier(couleurTest1)" class="flex grow justify-center items-center">
+                <span>#</span>code Hexa complementaire
             </button>
 
         </div>
@@ -41,8 +39,8 @@ const estFonce = false;
                     backgroundColor: '#' + couleurTest2,
                     borderColor: estFonce ? 'var(--color-text-light)' : 'var(--color-text-dark)'}">
 
-                <button class="flex grow justify-center items-center">
-                    <span>#</span>code Hexa triade1
+                <button @click="copierAuPressePapier(couleurTest2)" class="flex grow justify-center items-center">
+                    <span>#</span>code Hexa triade 1
                 </button>
 
             </div>
@@ -53,8 +51,8 @@ const estFonce = false;
                     backgroundColor: '#' + couleurTest3,
                     borderColor: estFonce ? 'var(--color-text-light)' : 'var(--color-text-dark)'}">
 
-                    <button class="flex grow justify-center items-center">
-                        <span>#</span>code Hexa triade1
+                    <button @click="copierAuPressePapier(couleurTest3)" class="flex grow justify-center items-center">
+                        <span>#</span>code Hexa triade 2 
                     </button>
 
                 </div>
