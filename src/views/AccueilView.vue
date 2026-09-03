@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import Slider from "../components/Slider.vue";
 import {
-  copierAuPressePapier,
-  useColorPicker,
+  useInputMain,
 } from "../composables/useInputMain.ts";
 
 const {
@@ -14,7 +13,8 @@ const {
   onSliderChange,
   onInput,
   onChange,
-} = useColorPicker();
+  copierAuPressePapier
+} = useInputMain();
 </script>
 
 <template>

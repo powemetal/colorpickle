@@ -4,7 +4,8 @@ const messageFooter = ref("");
 const estMessageDErreur = ref(false);
 
 export function useMessage() {
-  function afficherMessage(texte: string, dureeMs = 4000) {
+  function afficherMessage(texte: string, estErreur = false, dureeMs = 4000) {
+    estMessageDErreur.value = estErreur;
     messageFooter.value = texte;
 
     if (dureeMs > 0) {
