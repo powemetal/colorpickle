@@ -5,13 +5,12 @@ const { messageFooter, estMessageDErreur } = useMessage();
 </script>
 
 <template>
-  <div class="h-2 m-2">
+  <div class="h-4 m-2 mb-4 mx-4">
     <p
       :class="[
         estMessageDErreur ? 'text-red-500' : 'text-green-500',
         'font-bold text-center',
       ]"
-      v-if="messageFooter"
     >
       {{ messageFooter }}
     </p>

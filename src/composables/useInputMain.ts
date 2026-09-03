@@ -1,14 +1,18 @@
 import { ref, watch } from "vue";
 import { useMessage } from "./useMessage";
 
-const {afficherMessage} = useMessage();
+const { afficherMessage } = useMessage();
 
 export function useColorPicker() {
-  const codeHex = ref("FFFFFF");
+  const codeHex = ref("415f42");
   const displayValue = ref(codeHex.value);
   const r = ref(255);
   const g = ref(255);
   const b = ref(255);
+
+  watch(displayValue, (newValue) => {
+    document.documentElement.style.setProperty("--color-bg", `#${newValue}`);
+  });
 
   watch(codeHex, (val) => {
     displayValue.value = val;
@@ -74,10 +78,10 @@ function isValidHex(value: string): boolean {
 }
 
 export async function copierAuPressePapier(text: string) {
-    try {
-        await navigator.clipboard.writeText(text)
-         afficherMessage("Code hex copié avec succès !")
-    } catch (error) {
-        console.error("Erreur lors de la copie du texte :", error)
-    }
+  try {
+    await navigator.clipboard.writeText(text);
+    afficherMessage("Code hex copié avec succès !");
+  } catch (error) {
+    console.error("Erreur lors de la copie du texte :", error);
+  }
 }

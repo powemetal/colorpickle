@@ -17,7 +17,7 @@ const messageSauvegarde = "Données sauvegardées!"
 
             <div class="flex items-start justify-end m-4 w-full">
                 <div class="flex">
-                    <div class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 
+                    <div class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mix-blend-overlay mx-2 hover:border-4 
                     hover:border-solid hover:border-black/30">
                         <RouterLink :to="{name: 'palettes'}"><i class="fa-solid fa-swatchbook fa-2xl mix-blend-overlay"></i></RouterLink>
                     </div>
