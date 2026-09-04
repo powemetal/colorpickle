@@ -1,73 +1,99 @@
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import { useInputMain } from "../composables/useInputMain";
+import { useUtils } from "../composables/useUtils";
 
-const { copierAuPressePapier } = useInputMain();
-// const { triade1Value, r, g, b} =
-// const { triade2Value, r, g, b} =
-// const { complementaireValue, r, g ,b} =
+const {
+  r,
+  g,
+  b,
+  estFonce,
+  copierAuPressePapier,
+} = useInputMain();
 
-// valeurs test
-const couleurTest1 = "196788";
-const couleurTest2 = "AAA788";
-const couleurTest3 = "19BBB8";
-const estFonce = false;
+const {
+  couleurComplementaire,
+  couleursTriade
+} = useUtils();
 </script>
 
 <template>
   <div class="flex flex-col w-full py-5 px-12 gap-4">
-    <h2>Couleur complémentaire:</h2>
+    <h2 :style="{
+      color: estFonce(r,g,b)
+        ? 'var(--color-text-white)'
+        : 'var(--color-text-dark)'
+    }">
+    Couleur complémentaire:</h2>
     <div
-      class="complementaire flex w-full rounded-4xl min-h-28 border-solid border-gray-500 border border-4 font-bold mb-4 hover:scale-[1.02] transition"
+      class="complementaire flex w-full rounded-4xl min-h-24 border-solid border-4 font-bold mb-4 hover:scale-[1.02] transition"
       :style="{
-        backgroundColor: '#' + couleurTest1,
-        borderColor: estFonce
-          ? 'var(--color-text-light)'
-          : 'var(--color-text-dark)',
+        backgroundColor: '#' + couleurComplementaire.hex,
+        borderColor: estFonce(r,g,b)
+          ? 'var(--color-text-dark)'
+          : 'var(--color-text-white)',
       }"
     >
       <button
-        @click="copierAuPressePapier(couleurTest1)"
-        class="flex grow justify-center items-center"
+        @click="copierAuPressePapier(couleurComplementaire.hex)"
+        class="flex grow justify-center items-center cursor-pointer"
+        :style="{
+          color: estFonce(r,g,b)
+            ? 'black'
+            : 'white'
+        }"
       >
-        <span>#</span>code Hexa complementaire
+        <span>#</span>{{ couleurComplementaire.hex }}
       </button>
     </div>
 
-    <h2>Reste de la triade:</h2>
+    <h2 :style="{
+      color: estFonce(r,g,b)
+        ? 'var(--color-text-white)'
+        : 'var(--color-text-dark)'
+      }">Reste de la triade:</h2>
     <div class="flex justify-between gap-8 w-full">
       <div
-        class="triade1 flex w-full rounded-4xl min-h-28 border-solid border-gray-500 border border-4 font-bold hover:scale-[1.02] transition"
+        class="triade1 flex w-full rounded-4xl min-h-24 border-solid  border border-4 font-bold hover:scale-[1.02] transition"
         :style="{
-          backgroundColor: '#' + couleurTest2,
-          borderColor: estFonce
+          backgroundColor: '#' + couleursTriade.triade1.hex,
+          borderColor: estFonce(r,g,b)
             ? 'var(--color-text-light)'
             : 'var(--color-text-dark)',
         }"
       >
         <button
-          @click="copierAuPressePapier(couleurTest2)"
-          class="flex grow justify-center items-center"
+          @click="copierAuPressePapier(couleursTriade.triade1.hex)"
+          class="flex grow justify-center items-center cursor-pointer"
+          :style="{
+            color: estFonce(r,g,b)
+              ? 'white'
+              : 'black'
+          }"
         >
-          <span>#</span>code Hexa triade 1
+          <span>#</span>{{couleursTriade.triade1.hex}}
         </button>
       </div>
 
-      <div class="flex w-full rounded-4xl min-h-30">
+      <div class="flex w-full rounded-4xl">
         <div
-          class="triade2 flex w-full rounded-4xl min-h-28 border-solid border-gray-500 border border-4 font-bold hover:scale-[1.02] transition"
+          class="triade2 flex w-full rounded-4xl min-h-24 border-solid border border-4 font-bold hover:scale-[1.02] transition"
           :style="{
-            backgroundColor: '#' + couleurTest3,
-            borderColor: estFonce
+            backgroundColor: '#' + couleursTriade.triade2.hex,
+            borderColor: estFonce(r,g,b)
               ? 'var(--color-text-light)'
               : 'var(--color-text-dark)',
           }"
         >
           <button
-            @click="copierAuPressePapier(couleurTest3)"
-            class="flex grow justify-center items-center"
+            @click="copierAuPressePapier(couleursTriade.triade2.hex)"
+            class="flex grow justify-center items-center cursor-pointer"
+            :style="{
+              color: estFonce(r,g,b)
+              ? 'white'
+              : 'black'
+            }"
           >
-            <span>#</span>code Hexa triade 2
+            <span>#</span>{{ couleursTriade.triade2.hex }}
           </button>
         </div>
       </div>

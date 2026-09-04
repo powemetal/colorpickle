@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import '@fortawesome/fontawesome-free/css/all.min.css'
-import { ref } from "vue";
 import MessageFooter from "./components/MessageFooter.vue";
 import Navigation from "./components/Navigation.vue";
-import { useMessage } from "./composables/useMessage.ts";
 </script>
 
 <template>
