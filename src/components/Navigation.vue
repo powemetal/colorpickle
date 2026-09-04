@@ -4,6 +4,7 @@ import { useMessage } from "../composables/useMessage";
 import { useInputMain } from "../composables/useInputMain";
 
 const { recupererCouleurPick } = useInputMain();
+const estFonce = true;
 
 const messageSauvegarde = "Données sauvegardées!";
 </script>
@@ -26,7 +27,12 @@ const messageSauvegarde = "Données sauvegardées!";
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
           >
             <button @click="recupererCouleurPick">
-              <i class=" fa-solid fa-eye-dropper fa-2xl mix-blend-overlay"></i>
+              <i class=" fa-solid fa-eye-dropper fa-2xl mix-blend-overlay"
+              :style="{
+                color: estFonce
+                  ? 'white'
+                  : 'black',
+              }"></i>
             </button>
           </div>
           <div
@@ -34,21 +40,38 @@ const messageSauvegarde = "Données sauvegardées!";
           >
             <RouterLink :to="{ name: 'palettes' }"
               >
-              <i class=" fa-solid fa-swatchbook fa-2xl mix-blend-overlay "></i>
+              <i class=" fa-solid fa-swatchbook fa-2xl mix-blend-overlay "
+                :style="{
+                  color: estFonce
+                    ? 'white'
+                    : 'black',
+                }"
+              ></i>
             </RouterLink>
           </div>
           <div
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2  hover:border-4 hover:border-solid hover:border-black/10"
           >
             <button @click="useMessage().afficherMessage(messageSauvegarde)">
-              <i class=" fa-solid fa-floppy-disk mix-blend-overlay fa-2xl "></i>
+              <i class=" fa-solid fa-floppy-disk mix-blend-overlay fa-2xl"
+              :style="{
+                color: estFonce
+                  ? 'white'
+                  : 'black',
+              }">
+              </i>
             </button>
           </div>
           <div
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2  hover:border-4 hover:border-solid hover:border-black/10"
           >
             <RouterLink :to="{ name: 'utilitaires' }">
-                <i class="fa-solid fa-palette mix-blend-overlay fa-2xl "></i>
+                <i class="fa-solid fa-palette mix-blend-overlay fa-2xl "
+                :style="{
+                  color: estFonce
+                    ? 'white'
+                    : 'black',
+                }"></i>
             </RouterLink>
           </div>
         </div>

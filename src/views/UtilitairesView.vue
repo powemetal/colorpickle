@@ -2,7 +2,19 @@
 import { ref, computed } from "vue";
 import { useInputMain } from "../composables/useInputMain";
 
-const { copierAuPressePapier } = useInputMain();
+const {
+  displayValue,
+  r,
+  g,
+  b,
+  paletteCourante,
+  onSliderChange,
+  onInput,
+  onChange,
+  copierAuPressePapier
+} = useInputMain();
+
+
 // const { triade1Value, r, g, b} =
 // const { triade2Value, r, g, b} =
 // const { complementaireValue, r, g ,b} =
@@ -11,14 +23,17 @@ const { copierAuPressePapier } = useInputMain();
 const couleurTest1 = "196788";
 const couleurTest2 = "AAA788";
 const couleurTest3 = "19BBB8";
-const estFonce = false;
+const couleurR = r
+const couleurG = g
+const couleurB = b
+const estFonce = true;
 </script>
 
 <template>
   <div class="flex flex-col w-full py-5 px-12 gap-4">
     <h2>Couleur complémentaire:</h2>
     <div
-      class="complementaire flex w-full rounded-4xl min-h-28 border-solid border-gray-500 border border-4 font-bold mb-4 hover:scale-[1.02] transition"
+      class="complementaire flex w-full rounded-4xl min-h-24 border-solid border-4 font-bold mb-4 hover:scale-[1.02] transition"
       :style="{
         backgroundColor: '#' + couleurTest1,
         borderColor: estFonce
@@ -29,6 +44,11 @@ const estFonce = false;
       <button
         @click="copierAuPressePapier(couleurTest1)"
         class="flex grow justify-center items-center"
+        :style="{
+          color: estFonce
+            ? 'white'
+            : 'black'
+        }"
       >
         <span>#</span>code Hexa complementaire
       </button>
@@ -37,7 +57,7 @@ const estFonce = false;
     <h2>Reste de la triade:</h2>
     <div class="flex justify-between gap-8 w-full">
       <div
-        class="triade1 flex w-full rounded-4xl min-h-28 border-solid border-gray-500 border border-4 font-bold hover:scale-[1.02] transition"
+        class="triade1 flex w-full rounded-4xl min-h-24 border-solid  border border-4 font-bold hover:scale-[1.02] transition"
         :style="{
           backgroundColor: '#' + couleurTest2,
           borderColor: estFonce
@@ -48,14 +68,19 @@ const estFonce = false;
         <button
           @click="copierAuPressePapier(couleurTest2)"
           class="flex grow justify-center items-center"
+          :style="{
+            color: estFonce
+              ? 'white'
+              : 'black'
+          }"
         >
           <span>#</span>code Hexa triade 1
         </button>
       </div>
 
-      <div class="flex w-full rounded-4xl min-h-30">
+      <div class="flex w-full rounded-4xl">
         <div
-          class="triade2 flex w-full rounded-4xl min-h-28 border-solid border-gray-500 border border-4 font-bold hover:scale-[1.02] transition"
+          class="triade2 flex w-full rounded-4xl min-h-24 border-solid border border-4 font-bold hover:scale-[1.02] transition"
           :style="{
             backgroundColor: '#' + couleurTest3,
             borderColor: estFonce
@@ -66,6 +91,11 @@ const estFonce = false;
           <button
             @click="copierAuPressePapier(couleurTest3)"
             class="flex grow justify-center items-center"
+            :style="{
+              color: estFonce
+              ? 'white'
+              : 'black'
+            }"
           >
             <span>#</span>code Hexa triade 2
           </button>
