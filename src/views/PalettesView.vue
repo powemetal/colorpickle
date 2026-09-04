@@ -1,5 +1,6 @@
 <script setup lang="ts">
-    import { palettes } from "../data/paletteExamples.ts"
+    // import { palettes } from "../data/paletteExamples.ts"
+    import { palettes } from "../composables/usePalettes.ts"
     import type { Palette } from "../types/palette.ts"
     import type { Couleur } from "../types/couleur.ts"
     import CartePalette from "../components/CartePalette.vue"
