@@ -35,7 +35,7 @@ const {
     >
       <button
         @click="copierAuPressePapier(couleurComplementaire.hex)"
-        class="flex grow justify-center items-center"
+        class="flex grow justify-center items-center cursor-pointer"
         :style="{
           color: estFonce(r,g,b)
             ? 'black'
@@ -63,7 +63,7 @@ const {
       >
         <button
           @click="copierAuPressePapier(couleursTriade.triade1.hex)"
-          class="flex grow justify-center items-center"
+          class="flex grow justify-center items-center cursor-pointer"
           :style="{
             color: estFonce(r,g,b)
               ? 'white'
@@ -86,7 +86,7 @@ const {
         >
           <button
             @click="copierAuPressePapier(couleursTriade.triade2.hex)"
-            class="flex grow justify-center items-center"
+            class="flex grow justify-center items-center cursor-pointer"
             :style="{
               color: estFonce(r,g,b)
               ? 'white'
