@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Slider from "../components/Slider.vue";
-import {
-  useInputMain,
-} from "../composables/useInputMain.ts";
+import { useInputMain } from "../composables/useInputMain.ts";
 
 const {
   displayValue,
@@ -13,7 +11,8 @@ const {
   onSliderChange,
   onInput,
   onChange,
-  copierAuPressePapier
+  copierAuPressePapier,
+  estFonce,
 } = useInputMain();
 </script>
 
@@ -25,13 +24,16 @@ const {
         <Slider v-model="g" @input="onSliderChange" couleur="vert" />
         <Slider v-model="b" @input="onSliderChange" couleur="bleu" />
       </div>
-      <div class="flex flex-col justify-center w-40">
+      <div
+        class="flex flex-col justify-center w-40"
+        :class="estFonce(r, g, b) ? 'text-white' : 'text-black'"
+      >
         <div
-          class="flex w-full justify-center text-gray-300 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-3 py-1"
+          class="flex w-full justify-center font-bold bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-3 py-1"
         >
           <span class="text-lg">#</span>
           <input
-            class="w-20 bg-transparent outline-none border-none text-lg"
+            class="w-20 bg-transparent outline-none border-none text-lg [text-shadow:_inherit]"
             maxlength="6"
             v-model.trim="displayValue"
             @change="onChange"
@@ -41,15 +43,15 @@ const {
         </div>
         <div class="flex items-center mt-4 mx-auto w-full min-w-0 gap-2">
           <span
-            class="flex-1 min-w-0 text-center text-gray-300 bg-gray-800/40 rounded-full px-3 py-1 truncate"
+            class="flex-1 min-w-0 text-center bg-gray-800/20 rounded-full px-3 py-1 truncate border border-gray-600 font-semibold"
             >{{ paletteCourante.nom }}</span
           >
           <!-- TODO: ajouter la fonction pour ajouter la couleur à la palette -->
           <button
-            class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2"
+            class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2 flex items-center hover:cursor-pointer"
             @click=""
           >
-            +
+            <i class="fa-solid fa-plus"></i>
           </button>
         </div>
       </div>

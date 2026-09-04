@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useInputMain } from "../composables/useInputMain";
+
 const valeur = defineModel<number>();
 
 interface Props {
@@ -74,6 +76,8 @@ function verifierCharValide(e: Event) {
   val = Math.min(255, Math.max(0, val));
   valeur.value = val;
 }
+
+const { estFonce, r, g, b } = useInputMain();
 </script>
 
 <template>
@@ -81,7 +85,7 @@ function verifierCharValide(e: Event) {
     <input
       :class="[
         'w-full',
-        'h-4', 
+        'h-4',
         'my-auto',
         'bg-transparent',
         'appearance-none',
@@ -95,7 +99,12 @@ function verifierCharValide(e: Event) {
       @input="emit('change', valeur)"
     />
     <input
-      class="text-center text-gray-300 w-15 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full no-spinner p-1 border-none outline-none"
+      class="text-center font-semibold w-15 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full no-spinner p-1 border-none outline-none"
+      :class="
+        estFonce(r, g, b)
+          ? 'text-white'
+          : 'text-black'
+      "
       type="number"
       min="0"
       max="255"
