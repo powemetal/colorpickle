@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import logo from "@/assets/colorPickleLogo.png";
 import { useMessage } from "../composables/useMessage";
 import { useInputMain } from "../composables/useInputMain";
 
 const { recupererCouleurPick } = useInputMain();
-const estFonce = ref(false);
+
+const {
+  estFonce,
+  r,
+  g,
+  b,
+} = useInputMain();
 
 const messageSauvegarde = "Données sauvegardées!";
 </script>
@@ -16,7 +21,7 @@ const messageSauvegarde = "Données sauvegardées!";
       <div
         class="rounded-full w-24 h-24 min-w-24 flex flex-1 justify-center items-center m-4 hover:border-4 hover:border-solid hover:border-black/10"
         :style="{
-          backgroundColor: estFonce
+          backgroundColor: estFonce(r,g,b)
             ? 'rgba(256,256,256,0.2)'
             : 'rgba(0,0,0,0.2)'
         }"
@@ -32,7 +37,7 @@ const messageSauvegarde = "Données sauvegardées!";
           <div
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
             :style="{
-              backgroundColor: estFonce
+              backgroundColor: estFonce(r,g,b)
                 ? 'rgba(256,256,256,0.2)'
                 : 'rgba(0,0,0,0.2)'
             }"
@@ -46,7 +51,7 @@ const messageSauvegarde = "Données sauvegardées!";
           <div
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center  mx-2 hover:border-4 hover:border-solid hover:border-black/10"
             :style="{
-              backgroundColor: estFonce
+              backgroundColor: estFonce(r,g,b)
                 ? 'rgba(256,256,256,0.2)'
                 : 'rgba(0,0,0,0.2)'
             }"
@@ -63,7 +68,7 @@ const messageSauvegarde = "Données sauvegardées!";
           <div
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2  hover:border-4 hover:border-solid hover:border-black/10"
             :style="{
-              backgroundColor: estFonce
+              backgroundColor: estFonce(r,g,b)
                 ? 'rgba(256,256,256,0.2)'
                 : 'rgba(0,0,0,0.2)'
             }"
@@ -79,7 +84,7 @@ const messageSauvegarde = "Données sauvegardées!";
           <div
             class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2  hover:border-4 hover:border-solid hover:border-black/10"
             :style="{
-              backgroundColor: estFonce
+              backgroundColor: estFonce(r,g,b)
                 ? 'rgba(256,256,256,0.2)'
                 : 'rgba(0,0,0,0.2)'
             }">
