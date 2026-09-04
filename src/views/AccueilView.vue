@@ -43,7 +43,7 @@ const {
         </div>
         <div class="flex items-center mt-4 mx-auto w-full min-w-0 gap-2">
           <span
-            class="flex-1 min-w-0 text-center bg-gray-800/20 rounded-full px-3 py-1 truncate border border-gray-600 font-semibold"
+            class="flex-1 min-w-0 text-center bg-gray-800/20 transition rounded-full px-3 py-1 truncate border border-gray-600 font-semibold"
             >{{ paletteCourante.nom }}</span
           >
           <!-- TODO: ajouter la fonction pour ajouter la couleur à la palette -->

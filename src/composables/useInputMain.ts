@@ -1,10 +1,8 @@
 import { ref, watch } from "vue";
 import { useMessage } from "./useMessage";
 import { Palette } from "../types/palette";
-import useColorPicker from "./useColorPicker";
 
 const { afficherMessage } = useMessage();
-const { ouvrirPipette } = useColorPicker();
 
 const codeHex = ref("415F42");
 const displayValue = ref(codeHex.value);
@@ -15,7 +13,7 @@ const paletteCourante: Palette = {
   id: 1,
   nom: "Design",
   couleurs: [],
-  createdAt: new Date(Date.now())
+  createdAt: new Date(Date.now()),
 };
 
 watch(codeHex, (newValue) => {
@@ -34,10 +32,10 @@ function onHexChange() {
   if (!isValidHex(codeHex.value)) return;
   const resultat = calculerValeursRGB(codeHex.value);
   if (!resultat) return;
-  const [newR, newG, newB] = resultat;
-  r.value = newR;
-  g.value = newG;
-  b.value = newB;
+  const rgb = resultat;
+  r.value = rgb.r;
+  g.value = rgb.g;
+  b.value = rgb.b;
 }
 
 function onInput(e: Event) {
@@ -68,12 +66,6 @@ async function copierAuPressePapier(text: string) {
   }
 }
 
-async function recupererCouleurPick() {
-  const couleur = await ouvrirPipette();
-  if (!couleur) return;
-  codeHex.value = couleur;
-}
-
 export function useInputMain() {
   return {
     codeHex,
@@ -87,7 +79,7 @@ export function useInputMain() {
     onInput,
     onChange,
     copierAuPressePapier,
-    recupererCouleurPick,
+    calculerValeursRGB,
   };
 }
 
@@ -99,14 +91,20 @@ export function calculerCodeHex(r: number, g: number, b: number) {
 }
 
 function calculerValeursRGB(codeHex: string) {
-  return codeHex.match(/.{1,2}/g)!.map((c) => parseInt(c, 16));
+  const cleanHex = codeHex.replace("#", "");
+  const num = parseInt(cleanHex, 16);
+  return {
+    r: (num >> 16) & 255,
+    g: (num >> 8) & 255,
+    b: num & 255,
+  };
 }
 
 function isValidHex(value: string): boolean {
   return /^[0-9A-Fa-f]{6}$/.test(value);
 }
 
-function estFonce(r: number, g:number, b:number): boolean {
+function estFonce(r: number, g: number, b: number): boolean {
   const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
   return luminance <= 127;
 }

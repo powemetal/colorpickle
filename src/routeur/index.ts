@@ -1,10 +1,8 @@
-import Accueil from "../views/Accueil.vue";
 import AccueilView from "../views/AccueilView.vue";
-import Page1 from "../views/Page1.vue";
-import Page2 from "../views/Page2.vue";
 import { createRouter, createWebHashHistory } from "vue-router";
 import PalettesView from "../views/PalettesView.vue";
 import UtilitairesView from "../views/UtilitairesView.vue";
+import OverlayColorPicker from "../components/OverlayColorPicker.vue";
 
 const routes = [
   {
@@ -22,6 +20,11 @@ const routes = [
     name: "utilitaires",
     component: UtilitairesView,
   },
+  {
+      path: '/overlay',
+      name: 'overlay',
+      component: OverlayColorPicker,
+    },
 ];
 
 const router = createRouter({
