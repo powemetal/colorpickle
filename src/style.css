@@ -10,11 +10,15 @@ sinon --color-text-dark*/
   --color-text-dark: rgba(0, 0, 0, 0.4);
 }
 
-html,
-body,
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
 #app {
-  background-color: var(--color-bg);
   color: var(--color-text-light);
+  min-height: 100vh;
 }
 
 @utility container {
