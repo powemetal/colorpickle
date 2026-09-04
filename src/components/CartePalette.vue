@@ -13,7 +13,7 @@ const props = defineProps<{
     <div 
     class="w-18 h-18 rounded-full flex items-center justify-center  hover:scale-105 hover:shadow-xl transition mt-1" 
     :class="selected ? 'border-4 border-white/60 shadow-lg' : ''"
-    :style="{ backgroundColor: props.palette.couleurs[0].codeHex }"
+    :style="{ backgroundColor: props.palette.couleurs[0]?.codeHex || '#ccc' }"
     >
   </div>
     
