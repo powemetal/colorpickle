@@ -1,9 +1,8 @@
 <script setup lang="ts">
-    import type { Palette, Couleur } from "../types/palette"
+    import type { Palette } from "../types/palette"
     import { ref } from "vue"
-    import ChoisirPalette from "../components/ChoisirPalette.vue"
-    import AjoutPalette from "../components/AjoutPalette.vue"
     import CarteCouleur from "../components/CarteCouleur.vue"
+import { Couleur } from "@/types/couleur.ts"
 
     const props = defineProps<{
         palette: Palette | null

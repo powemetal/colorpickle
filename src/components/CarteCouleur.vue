@@ -13,13 +13,14 @@ const props = defineProps<{
 <template>
     <figure class="flex items-center justify-center">
         <div 
-            class="w-17 h-17 rounded-full flex items-center justify-center hover:scale-105 hover:shadow-xl transition"
+            class="w-17 h-17 rounded-full flex items-center justify-center hover:scale-105 hover:shadow-xl transition shrink-0"
             :class="selected ? 'border-4 border-white/60 shadow-lg' : ''"
             :style="{ backgroundColor: props.couleur.codeHex }"
         >
             <span 
                 v-if="props.couleur.nom" 
-                class="font-bold text-center drop-shadow-md px-2"
+                lang="fr"
+                class="font-bold text-center text-xs drop-shadow-md px-2 break-words leading-tight line-clamp-2"
                 :class="estFonce(
                     props.couleur.valeurRouge,
                     props.couleur.valeurVert,
