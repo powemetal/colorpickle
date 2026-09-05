@@ -10,7 +10,8 @@
     import ChoisirPalette from "../components/ChoisirPalette.vue"
     import ChoixCouleurs from "../components/ChoixCouleurs.vue"
     import { ref, computed } from "vue"
-    // const paletteChoisie = ref<Palette | null>(null)
+
+    
     const couleurChoisie = ref<Couleur | null>(null)
     const paletteChoisieId = ref<number | null>(null)
     const nomCouleur = ref("")
@@ -108,6 +109,7 @@
             type="text" 
             class="border w-40 mr-1"
             v-model="nomCouleur"
+            @keyup.enter="couleurChoisie && paletteChoisie && modifierCouleurNom(couleurChoisie, paletteChoisie, nomCouleur)"
         />
     </div>
 
@@ -137,7 +139,7 @@
                 hover:bg-white/20
                 transition-all duration-150
                 whitespace-nowrap"
-                @click="couleurChoisie && paletteChoisie && supprimerCouleur(couleurChoisie.id, paletteChoisie); couleurChoisie = null"
+                @click="couleurChoisie && paletteChoisie && supprimerCouleur(couleurChoisie.id, paletteChoisie); couleurChoisie = null, nomCouleur = ''"
 
 
 

@@ -5,7 +5,10 @@ import { Couleur } from "../types/couleur.ts";
 
 export const palettes = ref<Palette[]>(JSON.parse(JSON.stringify(palettesSource)));
 
+
 export function usePalette() {
+
+
     function ajouterCouleur(c: Couleur, p: Palette) {
         const palette = palettes.value.find(pa => pa.id === p.id);
         if (!palette) return;
