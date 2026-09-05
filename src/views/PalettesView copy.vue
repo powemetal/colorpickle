@@ -6,9 +6,6 @@
     import type { Couleur } from "../types/couleur.ts"
     import CartePalette from "../components/CartePalette.vue"
     import CarteCouleur from "../components/CarteCouleur.vue"
-    import AjoutPalette from "../components/AjoutPalette.vue"
-    import ChoisirPalette from "../components/ChoisirPalette.vue"
-    import ChoixCouleurs from "../components/ChoixCouleurs.vue"
     import { ref } from "vue"
     const paletteChoisie = ref<Palette | null>(null)
     const couleurChoisie = ref<Couleur | null>(null)
@@ -55,16 +52,47 @@
          'bg-[#e2e8f04D]': paletteChoisie != null
      }"
     >
-        <div v-if="!paletteChoisie" class="flex flex-col h-full"><ChoisirPalette/></div>
+        <span v-if="!paletteChoisie">Choisir une palette</span>
 
-        <div v-if="paletteChoisie?.id === 0" class="flex flex-col h-full"><AjoutPalette :ajouterPalette="ajouterPalette" /></div>
+        <div v-if="paletteChoisie?.id === 0" class="p-3 flex flex-col items-center justify-center text-center h-full">
+            <h1 class="text-center text-2xl mb-3">Ajouter une palette</h1>
+            
+            <h3 class="text-center">Entrez le nom de la nouvelle palette</h3>
+            <input 
+            type="text" 
+            class="border text-white my-3"  
+            v-model="nouveauNom"
+            @keyup.enter="ajouterPalette(nouveauNom), nouveauNom=''"
+            />
+            <button
+                class="px-4 py-2 rounded-lg 
+                        bg-white/40 backdrop-blur-sm 
+                        text-black font-semibold
+                        hover:bg-white/60 hover:shadow-lg
+                        transition-all duration-200"
+                @click="ajouterPalette(nouveauNom), nouveauNom=''"
+                        
+            >
+                Ajouter
+            </button>
+        </div>
 
-        <ChoixCouleurs 
-          v-if="paletteChoisie && paletteChoisie.id !==0"
-          :palette="paletteChoisie" 
-        />
+        <div 
+        v-if="paletteChoisie && paletteChoisie.id !== 0"
 
-
+        class="grid grid-cols-4 sm:grid-cols-4 gap-1 "
+        >
+            <CarteCouleur
+            
+                v-for="couleur in paletteChoisie.couleurs"
+                :key="couleur.id"
+                class="aspect-square flex items-center justify-center"
+                :couleur="couleur"
+                @click="couleurChoisie?.id === couleur.id ? couleurChoisie = null : couleurChoisie = couleur"
+                :selected="couleurChoisie?.id === couleur.id"
+                :class="{ 'bg-[#e2e8f04D] text-black rounded-full': couleurChoisie?.id === couleur.id }"
+            />
+        </div>
     </div>
 
 </div>
