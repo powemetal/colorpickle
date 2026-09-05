@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
     import { usePalette } from "../composables/usePalette.ts"
-    const { palettes, ajouterPalette, supprimerPalette, supprimerCouleur } = usePalette();
+    const { palettes, ajouterPalette, supprimerPalette, supprimerCouleur, modifierCouleurNom } = usePalette();
     import type { Palette } from "../types/palette.ts"
     import type { Couleur } from "../types/couleur.ts"
     import CartePalette from "../components/CartePalette.vue"
@@ -13,6 +13,8 @@
     // const paletteChoisie = ref<Palette | null>(null)
     const couleurChoisie = ref<Couleur | null>(null)
     const paletteChoisieId = ref<number | null>(null)
+    const nomCouleur = ref("")
+
     const paletteChoisie = computed(() =>
         palettes.value.find(p => p.id === paletteChoisieId.value) || null
     )
@@ -76,7 +78,7 @@
                     v-if="paletteChoisie && paletteChoisie.id !== 0"
                     :palette="paletteChoisie"
                     :paletteChoisieId="paletteChoisieId" 
-                    @select="couleurChoisie = $event"
+                    @select="couleurChoisie = $event; nomCouleur = $event?.nom || ''"
                 />
             </div>
 
@@ -102,7 +104,11 @@
     </div>
 
     <div class="flex items-center">
-        <input type="text" class="border w-40 mr-1">
+        <input 
+            type="text" 
+            class="border w-40 mr-1"
+            v-model="nomCouleur"
+        />
     </div>
 
         <div class="flex items-center  mx-auto">
@@ -115,7 +121,7 @@
                 hover:bg-white/20
                 transition-all duration-150
                 whitespace-nowrap"
-
+                @click="couleurChoisie && paletteChoisie && modifierCouleurNom(couleurChoisie, paletteChoisie, nomCouleur)"
         >
         Enregistrer
         </button>
