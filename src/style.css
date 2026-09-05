@@ -6,8 +6,8 @@ si la couleur est sombre la couleur de texte a utiliser serait --color-text-ligh
 sinon --color-text-dark*/
 :root {
   --color-bg: #415F42;
-  --color-text-light: rgba(255, 255, 255, 0.4);
-  --color-text-dark: rgba(0, 0, 0, 0.4);
+  --color-text-light: rgba(255, 255, 255, 0.8);
+  --color-text-dark: rgba(0, 0, 0, 0.7);
 }
 
 html, body {
