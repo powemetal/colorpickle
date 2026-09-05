@@ -1,19 +1,40 @@
 <script setup lang="ts">
-import Slider from "../components/Slider.vue";
-import { useInputMain } from "../composables/useInputMain.ts";
+  import Slider from "../components/Slider.vue";
+  import { useInputMain } from "../composables/useInputMain.ts";
+  import type { Palette } from "../types/palette.ts";
+  import { usePalette } from "../composables/usePalette.ts"
+  import { ref, computed } from "vue"
+  const { palettes, ajouterCouleur } = usePalette();
+  const paletteChoisieId = ref<number | null>(null)
+  const paletteChoisie = computed(() => palettes.value.find(p => p.id === paletteChoisieId.value) || null)
+  
 
-const {
-  displayValue,
-  r,
-  g,
-  b,
-  paletteCourante,
-  onSliderChange,
-  onInput,
-  onChange,
-  copierAuPressePapier,
-  estFonce,
-} = useInputMain();
+
+
+  const {
+    displayValue,
+    r,
+    g,
+    b,
+    onSliderChange,
+    onInput,
+    onChange,
+    copierAuPressePapier,
+    estFonce,
+  } = useInputMain();
+
+  function couleurActuelle(): Couleur {
+    return {
+      id: Date.now(),
+      nom: "",
+      valeurRouge: r.value,
+      valeurVert: g.value,
+      valeurBleu: b.value,
+      codeHex: "#"+displayValue.value,
+      createdAt: new Date()
+    }
+  }
+
 </script>
 
 <template>
@@ -42,14 +63,24 @@ const {
           />
         </div>
         <div class="flex items-center mt-4 mx-auto w-full min-w-0 gap-2">
-          <span
-            class="flex-1 min-w-0 text-center bg-gray-800/20 transition rounded-full px-3 py-1 truncate border border-gray-600 font-semibold"
-            >{{ paletteCourante.nom }}</span
+
+          <select
+            v-model.number="paletteChoisieId"
+            class="flex-1 min-w-0 text-center bg-gray-800/20 transition rounded-full px-3 py-1 truncate border border-gray-600 font-semibold text-white"
           >
-          <!-- TODO: ajouter la fonction pour ajouter la couleur à la palette -->
+            <option 
+              v-for="p in palettes" 
+              :key="p.id" 
+              :value="p.id"
+            >
+              {{ p.nom }}
+            </option>
+          </select>
+
+        
           <button
             class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2 flex items-center hover:cursor-pointer"
-            @click=""
+            @click="paletteChoisie && ajouterCouleur(couleurActuelle(), paletteChoisie); console.log(couleurActuelle())"
           >
             <i class="fa-solid fa-plus"></i>
           </button>
