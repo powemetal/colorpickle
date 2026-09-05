@@ -7,17 +7,17 @@
 
     const props = defineProps<{
         palette: Palette | null
+        paletteChoisieId: number | null
     }>()
     const couleurChoisie = ref<Couleur | null>(null)
+    
+    defineEmits(['select'])
+
+    
+
 </script>
 
 <template>
-        <!-- palette non choisie -->
-        <div v-if="!props.palette" class="flex flex-col h-full"><ChoisirPalette/></div>
-
-        <!-- palette + pour ajouter -->
-        <div v-if="props.palette?.id === 0" class="flex flex-col h-full"><AjoutPalette/></div>
-
         <div 
             v-if="props.palette && props.palette.id !== 0"
             class="grid grid-cols-4 sm:grid-cols-4 gap-1 "
@@ -28,7 +28,13 @@
                     :key="couleur.id"
                     class="aspect-square flex items-center justify-center"
                     :couleur="couleur"
-                    @click="couleurChoisie?.id === couleur.id ? couleurChoisie = null : couleurChoisie = couleur"
+                    @click=" if (couleurChoisie?.id === couleur.id) {
+                      couleurChoisie = null ;  
+                      $emit('select', null);
+                    } else {
+                        couleurChoisie = couleur;
+                        $emit('select', couleur);
+                    }"
                     :selected="couleurChoisie?.id === couleur.id"
                     :class="{ 'bg-[#e2e8f04D] text-black rounded-full': couleurChoisie?.id === couleur.id }"
                 />
