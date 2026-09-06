@@ -4,7 +4,7 @@ import { useMessage } from "../composables/useMessage";
 import { useInputMain } from "../composables/useInputMain";
 import useColorPicker from "../composables/useColorPicker";
 import { useRoute } from "vue-router";
-import { ref, computed } from "vue";
+
 
 const { champRecherche } = useInputMain();
 
