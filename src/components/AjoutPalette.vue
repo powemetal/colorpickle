@@ -29,7 +29,7 @@
             v-model="nouveauNom"
             @keyup.enter="nouveauNom
             ? soumettrePalette()
-            : afficherMessage('Veuillez entrer un nom de palette!', estErreur = true);
+            : afficherMessage('Veuillez entrer un nom de palette!', true);
             "
         />
 
@@ -41,7 +41,7 @@
                     transition-all duration-200"
             @click="nouveauNom
             ? soumettrePalette()
-            : afficherMessage('Veuillez entrer un nom de palette!', estErreur = true);
+            : afficherMessage('Veuillez entrer un nom de palette!', true);
             "
                         
         >

@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import Slider from "../components/Slider.vue";
 import { useInputMain } from "../composables/useInputMain.ts";
-import type { Palette } from "../types/palette.ts";
 import { usePalette } from "../composables/usePalette.ts";
 import { ref, computed } from "vue";
-import { Couleur } from "@/types/couleur.ts";
 import { useMessage } from "../composables/useMessage.ts";
 import { useCouleur } from "../composables/useCouleur"
 
@@ -59,12 +57,12 @@ const {
             {
               if (paletteChoisie && nomNouvelleCouleur) {
                 ajouterCouleur(
-                  creationCouleur(nomNouvelleCouleur, r.value, g.value, b.value, displayValue),
+                  creationCouleur(nomNouvelleCouleur, r, g, b, displayValue),
                   paletteChoisie
                 );
                 nomNouvelleCouleur = '';
               } else {
-                afficherMessage('Veuillez entrer un nom de couleur!', estErreur = true);
+                afficherMessage('Veuillez entrer un nom de couleur!', true);
               }
             }
             "
@@ -106,8 +104,8 @@ const {
             class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2 flex items-center hover:cursor-pointer disabled:cursor-not-allowed"
             @click="
               paletteChoisie && nomNouvelleCouleur
-              ?  ajouterCouleur(creationCouleur(nomNouvelleCouleur, r.value, g.value, b.value, displayValue), paletteChoisie)
-              :  afficherMessage(`Veuillez entrer un nom de couleur!`, estErreur = true);
+              ?  ajouterCouleur(creationCouleur(nomNouvelleCouleur, r, g, b, displayValue), paletteChoisie)
+              :  afficherMessage(`Veuillez entrer un nom de couleur!`, true);
             "
 
             :disabled="!paletteChoisie"

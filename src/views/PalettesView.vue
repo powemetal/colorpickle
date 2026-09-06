@@ -10,7 +10,6 @@
   import type { Palette } from "../types/palette.ts";
   import type { Couleur } from "../types/couleur.ts";
   import CartePalette from "../components/CartePalette.vue";
-  import CarteCouleur from "../components/CarteCouleur.vue";
   import AjoutPalette from "../components/AjoutPalette.vue";
   import ChoisirPalette from "../components/ChoisirPalette.vue";
   import ChoixCouleurs from "../components/ChoixCouleurs.vue";
@@ -51,12 +50,6 @@ const palettesFiltrees = computed(() =>
     couleurs: [],
     createdAt: new Date(),
   };
-const nouveauNom = ref("");
-
-
-  const props = defineProps<{
-    champRecherche: string
-  }>()
 
 </script>
 
