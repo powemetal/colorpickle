@@ -1,38 +1,63 @@
 <script setup lang="ts">
-import { usePalette } from "../composables/usePalette.ts";
-const {
-  palettes,
-  ajouterPalette,
-  supprimerPalette,
-  supprimerCouleur,
-  modifierCouleurNom,
-} = usePalette();
-import type { Palette } from "../types/palette.ts";
-import type { Couleur } from "../types/couleur.ts";
-import CartePalette from "../components/CartePalette.vue";
-import CarteCouleur from "../components/CarteCouleur.vue";
-import AjoutPalette from "../components/AjoutPalette.vue";
-import ChoisirPalette from "../components/ChoisirPalette.vue";
-import ChoixCouleurs from "../components/ChoixCouleurs.vue";
-import { ref, computed } from "vue";
-import { useInputMain } from "@/composables/useInputMain.ts";
+  import { usePalette } from "../composables/usePalette.ts";
+  const {
+    palettes,
+    ajouterPalette,
+    supprimerPalette,
+    supprimerCouleur,
+    modifierCouleurNom,
+  } = usePalette();
+  import type { Palette } from "../types/palette.ts";
+  import type { Couleur } from "../types/couleur.ts";
+  import CartePalette from "../components/CartePalette.vue";
+  import CarteCouleur from "../components/CarteCouleur.vue";
+  import AjoutPalette from "../components/AjoutPalette.vue";
+  import ChoisirPalette from "../components/ChoisirPalette.vue";
+  import ChoixCouleurs from "../components/ChoixCouleurs.vue";
+  import { ref, computed } from "vue";
+  import { useInputMain } from "@/composables/useInputMain.ts";
 
-const couleurChoisie = ref<Couleur | null>(null);
-const paletteChoisieId = ref<number | null>(null);
-const nomCouleur = ref("");
-const { couleurEstFonce } = useInputMain();
+  const couleurChoisie = ref<Couleur | null>(null);
+  const paletteChoisieId = ref<number | null>(null);
+  const nomCouleur = ref("");
+  const { couleurEstFonce, champRecherche } = useInputMain();
 
-const paletteChoisie = computed(
-  () => palettes.value.find((p) => p.id === paletteChoisieId.value) || null,
+  const paletteChoisie = computed(
+    () => palettes.value.find((p) => p.id === paletteChoisieId.value) || null,
+  );
+
+
+const palettesFiltrees = computed(() =>
+  palettes.value.filter(p => {
+    const recherche = champRecherche.value.toLowerCase();
+
+    const matchNomPalette =
+      p.nom.toLowerCase().includes(recherche);
+
+    const matchCouleurs =
+      p.couleurs.some(c =>
+        c.nom.toLowerCase().includes(recherche)
+      );
+
+    return matchNomPalette || matchCouleurs;
+  })
 );
 
-const paletteVide: Palette = {
-  id: 0,
-  nom: "+",
-  couleurs: [],
-  createdAt: new Date(),
-};
+  
+
+  const paletteVide: Palette = {
+    id: 0,
+    nom: "+",
+    couleurs: [],
+    createdAt: new Date(),
+  };
 const nouveauNom = ref("");
+
+
+  const props = defineProps<{
+    champRecherche: string
+  }>()
+
 </script>
 
 <template>
@@ -43,7 +68,7 @@ const nouveauNom = ref("");
           class="palettes w-1/4 h-full overflow-y-auto grid gap-2 scrollbar-hide"
         >
           <CartePalette
-            v-for="palette in palettes"
+            v-for="palette in palettesFiltrees"
             :key="palette.id"
             :palette="palette"
             @click="
@@ -124,6 +149,7 @@ const nouveauNom = ref("");
         <input
           type="text"
           class="border w-40 mr-1 px-2 py-1 rounded-md"
+          maxlength="15"
           v-model="nomCouleur"
           @keyup.enter="
             couleurChoisie &&

@@ -21,6 +21,7 @@
         <input 
             type="text" 
             class="border text-white my-3"  
+            maxlength="15"
             v-model="nouveauNom"
             @keyup.enter="soumettrePalette"
         />

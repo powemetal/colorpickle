@@ -1,7 +1,10 @@
 <script setup lang="ts">
 
 import type { Couleur } from "@/types/couleur";
-import { estFonce } from "@/composables/useCouleur"
+import { useCouleur } from "@/composables/useCouleur"
+
+const { estFonce } = useCouleur();
+
 
 const props = defineProps<{
   couleur: Couleur;
