@@ -3,11 +3,16 @@ import logo from "@/assets/colorPickleLogo.png";
 import { useMessage } from "../composables/useMessage";
 import { useInputMain } from "../composables/useInputMain";
 import useColorPicker from "../composables/useColorPicker";
+import { useRoute } from "vue-router";
+import { ref, computed } from "vue";
+
+const { champRecherche } = useInputMain();
+
 
 // const { recupererCouleurPick } = useInputMain();
 
 const { estFonce, r, g, b } = useInputMain();
-
+const route = useRoute();
 const { ouvrirColorPicker } = useColorPicker();
 
 const messageSauvegarde = "Données sauvegardées!";
@@ -15,6 +20,7 @@ const messageSauvegarde = "Données sauvegardées!";
 
 <template>
   <nav>
+    
     <div class="flex transition">
       <RouterLink :to="{ name: 'accueil' }">
         <div
@@ -30,26 +36,12 @@ const messageSauvegarde = "Données sauvegardées!";
       </RouterLink>
 
       <div class="flex items-start justify-end m-4 w-full">
-        <div class="flex">
-          <button
-            @click="ouvrirColorPicker"
-            class="flex bg-black/20 cursor-pointer rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
-            :style="{
-              backgroundColor: estFonce(r, g, b)
-                ? 'rgba(256,256,256,0.2)'
-                : 'rgba(0,0,0,0.2)',
-            }"
-          >
-            <i
-              class="fa-solid fa-eye-dropper fa-2xl mix-blend-overlay"
-              :style="{ color: 'white' }"
-            >
-            </i>
-          </button>
-
-          <RouterLink :to="{ name: 'palettes' }">
-            <div
-              class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
+        
+        <div>
+          <div class="flex">
+            <button
+              @click="ouvrirColorPicker"
+              class="flex bg-black/20 cursor-pointer rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
               :style="{
                 backgroundColor: estFonce(r, g, b)
                   ? 'rgba(256,256,256,0.2)'
@@ -57,33 +49,33 @@ const messageSauvegarde = "Données sauvegardées!";
               }"
             >
               <i
-                class="fa-solid fa-swatchbook fa-2xl mix-blend-overlay"
+                class="fa-solid fa-eye-dropper fa-2xl mix-blend-overlay"
+                :style="{ color: 'white' }"
+              >
+              </i>
+            </button>
+
+            <RouterLink :to="{ name: 'palettes' }">
+              <div
+                class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
                 :style="{
-                  color: 'white',
+                  backgroundColor: estFonce(r, g, b)
+                    ? 'rgba(256,256,256,0.2)'
+                    : 'rgba(0,0,0,0.2)',
                 }"
-              ></i>
-            </div>
-          </RouterLink>
+              >
+                <i
+                  class="fa-solid fa-swatchbook fa-2xl mix-blend-overlay"
+                  :style="{
+                    color: 'white',
+                  }"
+                ></i>
+              </div>
+            </RouterLink>
 
-          <button
-            @click="useMessage().afficherMessage(messageSauvegarde)"
-            class="flex bg-black/20 cursor-pointer rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
-            :style="{
-              backgroundColor: estFonce(r, g, b)
-                ? 'rgba(256,256,256,0.2)'
-                : 'rgba(0,0,0,0.2)',
-            }"
-          >
-            <i
-              class="fa-solid fa-floppy-disk mix-blend-overlay fa-2xl cursor-pointer"
-              :style="{ color: 'white' }"
-            >
-            </i>
-          </button>
-
-          <RouterLink :to="{ name: 'utilitaires' }">
-            <div
-              class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
+            <button
+              @click="useMessage().afficherMessage(messageSauvegarde)"
+              class="flex bg-black/20 cursor-pointer rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
               :style="{
                 backgroundColor: estFonce(r, g, b)
                   ? 'rgba(256,256,256,0.2)'
@@ -91,16 +83,44 @@ const messageSauvegarde = "Données sauvegardées!";
               }"
             >
               <i
-                class="fa-solid fa-palette mix-blend-overlay fa-2xl"
+                class="fa-solid fa-floppy-disk mix-blend-overlay fa-2xl cursor-pointer"
+                :style="{ color: 'white' }"
+              >
+              </i>
+            </button>
+
+            <RouterLink :to="{ name: 'utilitaires' }">
+              <div
+                class="flex bg-black/20 rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
                 :style="{
-                  color: 'white',
+                  backgroundColor: estFonce(r, g, b)
+                    ? 'rgba(256,256,256,0.2)'
+                    : 'rgba(0,0,0,0.2)',
                 }"
-              ></i>
-            </div>
-          </RouterLink>
+              >
+                <i
+                  class="fa-solid fa-palette mix-blend-overlay fa-2xl"
+                  :style="{
+                    color: 'white',
+                  }"
+                ></i>
+              </div>
+            </RouterLink>
+          </div>
+          <div class="mt-3 flex justify-center">
+            <input 
+            type="text"
+            v-if="route.name === 'palettes'"
+            v-model="champRecherche"
+            placeholder="Recherche Palette"
+            class="border mt-2 text-center rounded-lg"
+            />
+          </div>
         </div>
+
       </div>
     </div>
+
   </nav>
 </template>
 

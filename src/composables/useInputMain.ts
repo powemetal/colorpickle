@@ -4,6 +4,7 @@ import { Palette } from "../types/palette";
 
 const { afficherMessage } = useMessage();
 
+const nomNouvelleCouleur = ref("")
 const codeHex = ref("415F42");
 const displayValue = ref(codeHex.value);
 const r = ref(65);
@@ -16,6 +17,8 @@ const paletteCourante: Palette = {
   createdAt: new Date(Date.now()),
 };
 
+const champRecherche = ref("")
+
 watch(codeHex, (newValue) => {
   document.documentElement.style.setProperty("--color-bg", `#${newValue}`);
 });
@@ -27,6 +30,8 @@ watch(codeHex, (val) => {
 function onSliderChange() {
   codeHex.value = calculerCodeHex(r.value, g.value, b.value);
 }
+
+
 
 function onHexChange() {
   if (!isValidHex(codeHex.value)) return;
@@ -73,6 +78,7 @@ export function useInputMain() {
     r,
     g,
     b,
+    nomNouvelleCouleur,
     paletteCourante,
     couleurEstFonce,
     estFonce,
@@ -81,6 +87,7 @@ export function useInputMain() {
     onChange,
     copierAuPressePapier,
     calculerValeursRGB,
+    champRecherche,
   };
 }
 

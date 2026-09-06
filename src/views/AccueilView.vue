@@ -5,6 +5,12 @@ import type { Palette } from "../types/palette.ts";
 import { usePalette } from "../composables/usePalette.ts";
 import { ref, computed } from "vue";
 import { Couleur } from "@/types/couleur.ts";
+import { useMessage } from "../composables/useMessage.ts";
+import { useCouleur } from "../composables/useCouleur"
+
+const { afficherMessage } = useMessage();
+const { creationCouleur } = useCouleur();
+
 const { palettes, ajouterCouleur } = usePalette();
 const paletteChoisieId = ref<number | null>(palettes.value[0].id);
 const paletteChoisie = computed(
@@ -13,6 +19,7 @@ const paletteChoisie = computed(
 
 const {
   displayValue,
+  nomNouvelleCouleur,
   r,
   g,
   b,
@@ -24,18 +31,6 @@ const {
 } = useInputMain();
 
 
-
-function couleurActuelle(): Couleur {
-  return {
-    id: Date.now(),
-    nom: "",
-    valeurRouge: r.value,
-    valeurVert: g.value,
-    valeurBleu: b.value,
-    codeHex: "#" + displayValue.value,
-    createdAt: new Date(),
-  };
-}
 </script>
 
 <template>
@@ -47,11 +42,26 @@ function couleurActuelle(): Couleur {
         <Slider v-model="b" @input="onSliderChange" couleur="bleu" />
       </div>
       <div
-        class="flex flex-col justify-center w-40"
+        class="flex flex-col justify-center w-40 gap-1"
         :class="couleurEstFonce ? 'text-white' : 'text-black'"
       >
+
         <div
           class="flex w-full justify-center font-bold bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-3 py-1"
+        >
+
+          <input
+            class="w-20 bg-transparent outline-none border-none text-lg [text-shadow:_inherit]"
+            maxlength="12"
+            v-model="nomNouvelleCouleur"
+            placeholder="    Nom"
+
+
+          />
+        </div>
+
+        <div
+          class="flex w-full justify-center font-bold bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-3 py-1 "
         >
           <span class="text-lg">#</span>
           <input
@@ -63,7 +73,7 @@ function couleurActuelle(): Couleur {
             @dblclick="copierAuPressePapier(`#${displayValue}`)"
           />
         </div>
-        <div class="flex items-center mt-4 mx-auto w-full min-w-0 gap-2">
+        <div class="flex items-center mx-auto w-full min-w-0 gap-2">
           <select
             v-model.number="paletteChoisieId"
             class="flex-1 min-w-0 text-center bg-gray-800/20 hover:bg-gray-600/40 transition rounded-full px-3 py-1 truncate border border-gray-600 font-semibold"
@@ -81,11 +91,12 @@ function couleurActuelle(): Couleur {
 
           <button
             class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2 flex items-center hover:cursor-pointer disabled:cursor-not-allowed"
-            @click="
-              paletteChoisie &&
-                ajouterCouleur(couleurActuelle(), paletteChoisie);
-              console.log(couleurActuelle());
+            @click="codeHex = 
+              paletteChoisie && nomNouvelleCouleur
+              ?  ajouterCouleur(creationCouleur(nomNouvelleCouleur, r.value, g.value, b.value, displayValue), paletteChoisie)
+              :  afficherMessage(`Veuillez entrer un nom de couleur!`, estErreur = true);
             "
+
             :disabled="!paletteChoisie"
           >
             <i class="fa-solid fa-plus"></i>
