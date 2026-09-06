@@ -1,6 +1,10 @@
 <script setup lang="ts">
-        import { ref } from "vue"
-        const nouveauNom = ref("")
+    import { ref } from "vue"
+    import { useMessage } from "../composables/useMessage.ts";
+
+
+    const nouveauNom = ref("")
+    const { afficherMessage } = useMessage();
 
     const props = defineProps<{
         ajouterPalette: (nom: string) => void
@@ -20,10 +24,13 @@
         <h3 class="text-center">Entrez le nom de la nouvelle palette</h3>
         <input 
             type="text" 
-            class="border text-white my-3"  
+            class="border text-white my-3 rounded-lg"  
             maxlength="15"
             v-model="nouveauNom"
-            @keyup.enter="soumettrePalette"
+            @keyup.enter="nouveauNom
+            ? soumettrePalette()
+            : afficherMessage('Veuillez entrer un nom de palette!', estErreur = true);
+            "
         />
 
         <button
@@ -32,7 +39,10 @@
                     text-black font-semibold
                     hover:bg-white/60 hover:shadow-lg
                     transition-all duration-200"
-            @click="soumettrePalette"
+            @click="nouveauNom
+            ? soumettrePalette()
+            : afficherMessage('Veuillez entrer un nom de palette!', estErreur = true);
+            "
                         
         >
             Ajouter

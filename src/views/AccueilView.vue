@@ -54,7 +54,20 @@ const {
             class="w-20 bg-transparent outline-none border-none text-lg [text-shadow:_inherit]"
             maxlength="12"
             v-model="nomNouvelleCouleur"
-            placeholder="    Nom"
+            placeholder="Nom"
+            @keyup.enter="
+            {
+              if (paletteChoisie && nomNouvelleCouleur) {
+                ajouterCouleur(
+                  creationCouleur(nomNouvelleCouleur, r.value, g.value, b.value, displayValue),
+                  paletteChoisie
+                );
+                nomNouvelleCouleur = '';
+              } else {
+                afficherMessage('Veuillez entrer un nom de couleur!', estErreur = true);
+              }
+            }
+            "
 
 
           />
@@ -91,7 +104,7 @@ const {
 
           <button
             class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2 flex items-center hover:cursor-pointer disabled:cursor-not-allowed"
-            @click="codeHex = 
+            @click="
               paletteChoisie && nomNouvelleCouleur
               ?  ajouterCouleur(creationCouleur(nomNouvelleCouleur, r.value, g.value, b.value, displayValue), paletteChoisie)
               :  afficherMessage(`Veuillez entrer un nom de couleur!`, estErreur = true);
