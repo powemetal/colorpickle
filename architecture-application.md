@@ -5,6 +5,7 @@
 - Framework Frontend : Vue.js 3 (Composition API)
 - Build Tool : Vite
 - Langage : TypeScript / HTML / CSS
+- [README.md](./README.md)
 
 ## Structure des Fichiers
 
