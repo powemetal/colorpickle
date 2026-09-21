@@ -45,7 +45,7 @@ impl Palette {
         &self.created_at 
     }
 
-    pub fn renommer(&mut self, nom: String) -> Result<(), String> {
+    pub fn modifier_palette_nom(&mut self, nom: String) -> Result<(), String> {
         if nom.trim().is_empty() {
             return Err("Le nom de la palette ne peut pas être vide".into());
         }

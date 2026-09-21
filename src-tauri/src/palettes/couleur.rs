@@ -60,5 +60,13 @@ impl Couleur {
         &self.created_at 
     }
 
+    pub fn modifier_couleur_nom(&mut self, nom: String) -> Result<(), String> {
+        if nom.trim().is_empty() {
+            return Err("Le nom de la couleur ne peut pas être vide".into());
+        }
+        self.nom = nom;
+        Ok(())
+    }
+
 }
 
