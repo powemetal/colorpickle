@@ -1,8 +1,9 @@
 use serde::Deserialize;
 use chrono::NaiveDateTime;
 
+#[derive(serde::Serialize,Deserialize, Clone)]
 pub struct Couleur {
-    id: u32,
+    id: String,
     nom: String,
     valeur_rouge: u8,
     valeur_vert: u8,
@@ -13,7 +14,7 @@ pub struct Couleur {
 
 impl Couleur {
     pub fn new(
-        id: u32,
+        id: String,
         nom: String,
         valeur_rouge: u8,
         valeur_vert: u8,
@@ -32,8 +33,8 @@ impl Couleur {
         }
     }
 
-    pub fn id(&self) -> u32 { 
-        self.id 
+    pub fn id(&self) -> &str { 
+        &self.id 
     }
     
     pub fn nom(&self) -> &str { 
@@ -58,6 +59,11 @@ impl Couleur {
 
     pub fn created_at(&self) -> &NaiveDateTime { 
         &self.created_at 
+    }
+
+    pub fn set_code_hex(&mut self, code_hex: String) {
+        // TODO : Vérification code hex valide
+        self.code_hex = code_hex;
     }
 
     pub fn modifier_couleur_nom(&mut self, nom: String) -> Result<(), String> {

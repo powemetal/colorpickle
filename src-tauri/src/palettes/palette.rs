@@ -1,77 +1,87 @@
-use serde::Deserialize;
 use chrono::NaiveDateTime;
-use palettes::Couleur;
+use serde::Deserialize;
+use uuid::Uuid;
 
+use crate::palettes::couleur::Couleur;
 
-
-
+#[derive(serde::Serialize, Deserialize, Clone)]
 pub struct Palette {
-    id: u32,
+    id: String,
     nom: String,
     couleurs: Vec<Couleur>,
     created_at: NaiveDateTime,
 }
 
-
-
 impl Palette {
-    pub fn new(
-        id: u32,
-        nom: String,
-        couleurs: Vec<Couleur>,
-        created_at: NaiveDateTime,
-    ) -> Self {
-        Self{
-            id,
+    pub fn new(nom: String, couleurs: Vec<Couleur>) -> Self {
+        Self {
+            id: Uuid::new_v4().to_string(),
             nom,
             couleurs,
-            created_at
+            created_at: chrono::Utc::now().naive_utc(),
         }
     }
 
-    pub fn id(&self) -> u32 { 
-        self.id 
-    }
-    
-    pub fn nom(&self) -> &str { 
-        &self.nom 
+    pub fn id(&self) -> &str {
+        &self.id
     }
 
-    pub fn couleurs(&self) -> &Vec<Couleur> { 
-        &self.couleurs 
+    pub fn nom(&self) -> &str {
+        &self.nom
     }
 
-    pub fn created_at(&self) -> &NaiveDateTime { 
-        &self.created_at 
+    pub fn couleurs(&self) -> &Vec<Couleur> {
+        &self.couleurs
     }
 
-    pub fn modifier_palette_nom(&mut self, nom: String) -> Result<(), String> {
+    pub fn created_at(&self) -> &NaiveDateTime {
+        &self.created_at
+    }
+
+    pub fn set_nom(&mut self, nom: &str) -> Result<(), String> {
+        let nb_char_max = 25;
+
         if nom.trim().is_empty() {
             return Err("Le nom de la palette ne peut pas être vide".into());
         }
-        self.nom = nom;
+        if nom.len() > nb_char_max {
+            return Err(format!(
+                "Le nom de la palette doit faire au maximum {nb_char_max} charactères."
+            ));
+        }
+        if self.est_nom_duplique(&nom) {
+            return Err("Il ne peut pas y avoir deux couleurs avec le même nom.".into());
+        }
+        self.nom = nom.to_string();
         Ok(())
     }
 
+    fn est_nom_duplique(&self, nom: &str) -> bool {
+        self.couleurs
+            .iter()
+            .any(|c| c.nom().trim().to_ascii_lowercase() == nom.trim().to_ascii_lowercase())
+    }
+
     pub fn ajouter_couleur(&mut self, couleur: Couleur) -> Result<(), String> {
-        if self.couleurs.iter().any(|c| c.code_hex == couleur.code_hex()) {
+        if self
+            .couleurs
+            .iter()
+            .any(|c| c.code_hex() == couleur.code_hex())
+        {
             return Err("Cette couleur est dejà dans la palette".into());
         }
         self.couleurs.push(couleur);
         Ok(())
     }
 
-    pub fn supprimer_couleur(&mut self, id: u32) -> Result<(), String> {
-        let avant = self.palettes.len();
-        self.palettes.retain(|p| p.id() != id);
+    pub fn supprimer_couleur(&mut self, id: &str) -> Result<(), String> {
+        let avant = self.couleurs.len();
+        self.couleurs.retain(|c| c.id() != id);
 
-        if self.palettes.len() == avant {
-            return Err("Palettes introuvable".into())
+        if self.couleurs.len() == avant {
+            return Err("Couleur introuvable".into());
         }
 
         Ok(())
     }
-
-
-
 }

@@ -1,6 +1,7 @@
 mod color_pick;
-mod modeles;
 mod stockage;
+mod commandes;
+mod palettes;
 
 use crate::color_pick::color_pick::{
     cancel_color_pick, confirm_color_pick, read_pixel_at, start_color_pick,
