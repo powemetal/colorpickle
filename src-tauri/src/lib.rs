@@ -1,6 +1,7 @@
 mod color_pick;
-mod modeles;
 mod stockage;
+mod commandes;
+mod palettes;
 
 use crate::color_pick::color_pick::{
     cancel_color_pick, confirm_color_pick, read_pixel_at, start_color_pick,
@@ -11,6 +12,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
+            commandes::modifier_palette_nom,
             start_color_pick,
             read_pixel_at,
             confirm_color_pick,

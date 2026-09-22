@@ -1,18 +1,15 @@
-use serde::Deserialize;
+use serde::{Serialize, Deserialize};
 use chrono::NaiveDateTime;
-use palettes::Couleur;
+use super::couleur::Couleur;
 
-
-
-
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Palette {
     id: u32,
     nom: String,
     couleurs: Vec<Couleur>,
     created_at: NaiveDateTime,
 }
-
-
 
 impl Palette {
     pub fn new(
@@ -53,25 +50,31 @@ impl Palette {
         Ok(())
     }
 
-    pub fn ajouter_couleur(&mut self, couleur: Couleur) -> Result<(), String> {
-        if self.couleurs.iter().any(|c| c.code_hex == couleur.code_hex()) {
-            return Err("Cette couleur est dejà dans la palette".into());
-        }
-        self.couleurs.push(couleur);
-        Ok(())
-    }
+    // pub fn ajouter_couleur(&mut self, couleur: Couleur) -> Result<(), String> {
+    //     if self.couleurs.iter().any(|c| c.code_hex == couleur.code_hex()) {
+    //         return Err("Cette couleur est dejà dans la palette".into());
+    //     }
+    //     self.couleurs.push(couleur);
+    //     Ok(())
+    // }
 
-    pub fn supprimer_couleur(&mut self, id: u32) -> Result<(), String> {
-        let avant = self.palettes.len();
-        self.palettes.retain(|p| p.id() != id);
+    // pub fn supprimer_couleur(&mut self, id: u32) -> Result<(), String> {
+    //     let avant = self.palettes.len();
+    //     self.palettes.retain(|p| p.id() != id);
 
-        if self.palettes.len() == avant {
-            return Err("Palettes introuvable".into())
-        }
+    //     if self.palettes.len() == avant {
+    //         return Err("Palettes introuvable".into())
+    //     }
 
-        Ok(())
-    }
+    //     Ok(())
+    // }
 
+}
 
-
+// fonctions nécessitant la liste des palettes donc hors de Palette^
+pub fn trouver_palette_mut(palettes: &mut Vec<Palette>, id: u32) -> Result<&mut Palette, String> {
+    palettes
+        .iter_mut()
+        .find(|p| p.id() == id)
+        .ok_or_else(|| "Palette introuvable".to_string())
 }

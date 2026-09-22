@@ -3,6 +3,7 @@ import type { Palette } from "../types/palette.ts";
 import { palettes as palettesSource } from "../data/paletteExamples.ts";
 import { Couleur } from "../types/couleur.ts";
 import { useMessage } from "./useMessage.ts";
+import {invoke} from '@tauri-apps/api/core'
 
 export const palettes = ref<Palette[]>(
   JSON.parse(JSON.stringify(palettesSource)),
@@ -86,8 +87,9 @@ export function usePalette() {
     }
   }
 
-  function modifierPaletteNom(p: Palette, nom: string) {
+  async function modifierPaletteNom(p: Palette, nom: string) {
     try {
+      await invoke("modifier_palette_nom", {id: p.id, nom});
       p.nom = nom;
       afficherMessage("Nom de la palette modifiée !");
     } catch (error) {

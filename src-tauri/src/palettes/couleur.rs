@@ -1,6 +1,8 @@
-use serde::Deserialize;
+use serde::{Serialize, Deserialize};
 use chrono::NaiveDateTime;
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Couleur {
     id: u32,
     nom: String,
