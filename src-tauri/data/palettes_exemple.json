@@ -1,0 +1,432 @@
+[
+  {
+    "id": "1e5c26b8-80f4-4b52-b88d-e6b772bca501",
+    "nom": "Coucher de Soleil",
+    "created_at": "2026-09-22T10:00:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0001-4000-8000-000000000001",
+        "nom": "Jaune Doré",
+        "valeur_rouge": 255,
+        "valeur_vert": 209,
+        "valeur_bleu": 102,
+        "code_hex": "#FFD166",
+        "created_at": "2026-09-22T10:00:00"
+      },
+      {
+        "id": "a1b2c3d4-0001-4000-8000-000000000002",
+        "nom": "Orange Corail",
+        "valeur_rouge": 247,
+        "valeur_vert": 140,
+        "valeur_bleu": 107,
+        "code_hex": "#F78C6B",
+        "created_at": "2026-09-22T10:00:00"
+      },
+      {
+        "id": "a1b2c3d4-0001-4000-8000-000000000003",
+        "nom": "Rose Crépuscule",
+        "valeur_rouge": 239,
+        "valeur_vert": 71,
+        "valeur_bleu": 111,
+        "code_hex": "#EF476F",
+        "created_at": "2026-09-22T10:00:00"
+      },
+      {
+        "id": "a1b2c3d4-0001-4000-8000-000000000004",
+        "nom": "Violet Nuit",
+        "valeur_rouge": 84,
+        "valeur_vert": 13,
+        "valeur_bleu": 110,
+        "code_hex": "#540D6E",
+        "created_at": "2026-09-22T10:00:00"
+      }
+    ]
+  },
+  {
+    "id": "2f6d37c9-91f5-4c63-b99e-f7c883cdb602",
+    "nom": "Océan Profond",
+    "created_at": "2026-09-22T10:05:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0002-4000-8000-000000000001",
+        "nom": "Écume Claire",
+        "valeur_rouge": 224,
+        "valeur_vert": 251,
+        "valeur_bleu": 252,
+        "code_hex": "#E0FBFC",
+        "created_at": "2026-09-22T10:05:00"
+      },
+      {
+        "id": "a1b2c3d4-0002-4000-8000-000000000002",
+        "nom": "Bleu Glacier",
+        "valeur_rouge": 152,
+        "valeur_vert": 193,
+        "valeur_bleu": 217,
+        "code_hex": "#98C1D9",
+        "created_at": "2026-09-22T10:05:00"
+      },
+      {
+        "id": "a1b2c3d4-0002-4000-8000-000000000003",
+        "nom": "Bleu Marine",
+        "valeur_rouge": 61,
+        "valeur_vert": 90,
+        "valeur_bleu": 128,
+        "code_hex": "#3D5A80",
+        "created_at": "2026-09-22T10:05:00"
+      },
+      {
+        "id": "a1b2c3d4-0002-4000-8000-000000000004",
+        "nom": "Abysse Sombre",
+        "valeur_rouge": 19,
+        "valeur_vert": 42,
+        "valeur_bleu": 62,
+        "code_hex": "#132A3E",
+        "created_at": "2026-09-22T10:05:00"
+      }
+    ]
+  },
+  {
+    "id": "3a7e48da-02a6-4d74-ca0f-08d994dec703",
+    "nom": "Forêt Boréale",
+    "created_at": "2026-09-22T10:10:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0003-4000-8000-000000000001",
+        "nom": "Vert Sauge",
+        "valeur_rouge": 163,
+        "valeur_vert": 177,
+        "valeur_bleu": 138,
+        "code_hex": "#A3B18A",
+        "created_at": "2026-09-22T10:10:00"
+      },
+      {
+        "id": "a1b2c3d4-0003-4000-8000-000000000002",
+        "nom": "Vert Mousse",
+        "valeur_rouge": 88,
+        "valeur_vert": 129,
+        "valeur_bleu": 87,
+        "code_hex": "#588157",
+        "created_at": "2026-09-22T10:10:00"
+      },
+      {
+        "id": "a1b2c3d4-0003-4000-8000-000000000003",
+        "nom": "Vert Épinette",
+        "valeur_rouge": 58,
+        "valeur_vert": 90,
+        "valeur_bleu": 64,
+        "code_hex": "#3A5A40",
+        "created_at": "2026-09-22T10:10:00"
+      },
+      {
+        "id": "a1b2c3d4-0003-4000-8000-000000000004",
+        "nom": "Écorce Sombre",
+        "valeur_rouge": 52,
+        "valeur_vert": 78,
+        "valeur_bleu": 65,
+        "code_hex": "#344E41",
+        "created_at": "2026-09-22T10:10:00"
+      }
+    ]
+  },
+  {
+    "id": "4b8f59eb-13b7-4e85-db1a-19ea05efd804",
+    "nom": "Café & Crème",
+    "created_at": "2026-09-22T10:15:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0004-4000-8000-000000000001",
+        "nom": "Lait Chaud",
+        "valeur_rouge": 243,
+        "valeur_vert": 233,
+        "valeur_bleu": 220,
+        "code_hex": "#F3E9DC",
+        "created_at": "2026-09-22T10:15:00"
+      },
+      {
+        "id": "a1b2c3d4-0004-4000-8000-000000000002",
+        "nom": "Caramel",
+        "valeur_rouge": 212,
+        "valeur_vert": 163,
+        "valeur_bleu": 115,
+        "code_hex": "#D4A373",
+        "created_at": "2026-09-22T10:15:00"
+      },
+      {
+        "id": "a1b2c3d4-0004-4000-8000-000000000003",
+        "nom": "Moka",
+        "valeur_rouge": 169,
+        "valeur_vert": 132,
+        "valeur_bleu": 103,
+        "code_hex": "#A98467",
+        "created_at": "2026-09-22T10:15:00"
+      },
+      {
+        "id": "a1b2c3d4-0004-4000-8000-000000000004",
+        "nom": "Espresso",
+        "valeur_rouge": 107,
+        "valeur_vert": 79,
+        "valeur_bleu": 79,
+        "code_hex": "#6B4F4F",
+        "created_at": "2026-09-22T10:15:00"
+      }
+    ]
+  },
+  {
+    "id": "5c906afc-24c8-4f96-ec2b-2afb16fee905",
+    "nom": "Synthwave 80s",
+    "created_at": "2026-09-22T10:20:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0005-4000-8000-000000000001",
+        "nom": "Rose Néon",
+        "valeur_rouge": 255,
+        "valeur_vert": 0,
+        "valeur_bleu": 127,
+        "code_hex": "#FF007F",
+        "created_at": "2026-09-22T10:20:00"
+      },
+      {
+        "id": "a1b2c3d4-0005-4000-8000-000000000002",
+        "nom": "Violet Laser",
+        "valeur_rouge": 157,
+        "valeur_vert": 0,
+        "valeur_bleu": 255,
+        "code_hex": "#9D00FF",
+        "created_at": "2026-09-22T10:20:00"
+      },
+      {
+        "id": "a1b2c3d4-0005-4000-8000-000000000003",
+        "nom": "Bleu Cyan",
+        "valeur_rouge": 0,
+        "valeur_vert": 245,
+        "valeur_bleu": 255,
+        "code_hex": "#00F5FF",
+        "created_at": "2026-09-22T10:20:00"
+      },
+      {
+        "id": "a1b2c3d4-0005-4000-8000-000000000004",
+        "nom": "Noir Arcade",
+        "valeur_rouge": 20,
+        "valeur_vert": 13,
+        "valeur_bleu": 36,
+        "code_hex": "#140D24",
+        "created_at": "2026-09-22T10:20:00"
+      }
+    ]
+  },
+  {
+    "id": "6da17b0d-35d9-40a7-fd3c-3bac270ff006",
+    "nom": "Douceur Pastel",
+    "created_at": "2026-09-22T10:25:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0006-4000-8000-000000000001",
+        "nom": "Pêche Pâle",
+        "valeur_rouge": 255,
+        "valeur_vert": 200,
+        "valeur_bleu": 221,
+        "code_hex": "#FFC8DD",
+        "created_at": "2026-09-22T10:25:00"
+      },
+      {
+        "id": "a1b2c3d4-0006-4000-8000-000000000002",
+        "nom": "Lilas Poudré",
+        "valeur_rouge": 205,
+        "valeur_vert": 180,
+        "valeur_bleu": 219,
+        "code_hex": "#CDB4DB",
+        "created_at": "2026-09-22T10:25:00"
+      },
+      {
+        "id": "a1b2c3d4-0006-4000-8000-000000000003",
+        "nom": "Bleu Ciel",
+        "valeur_rouge": 189,
+        "valeur_vert": 224,
+        "valeur_bleu": 254,
+        "code_hex": "#BDE0FE",
+        "created_at": "2026-09-22T10:25:00"
+      },
+      {
+        "id": "a1b2c3d4-0006-4000-8000-000000000004",
+        "nom": "Lavande Claire",
+        "valeur_rouge": 162,
+        "valeur_vert": 210,
+        "valeur_bleu": 255,
+        "code_hex": "#A2D2FF",
+        "created_at": "2026-09-22T10:25:00"
+      }
+    ]
+  },
+  {
+    "id": "7eb28c1e-46ea-41b8-0e4d-4cbd38100107",
+    "nom": "Terre Brûlée",
+    "created_at": "2026-09-22T10:30:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0007-4000-8000-000000000001",
+        "nom": "Sable Chaud",
+        "valeur_rouge": 227,
+        "valeur_vert": 208,
+        "valeur_bleu": 172,
+        "code_hex": "#E3D0AC",
+        "created_at": "2026-09-22T10:30:00"
+      },
+      {
+        "id": "a1b2c3d4-0007-4000-8000-000000000002",
+        "nom": "Ocre Jaune",
+        "valeur_rouge": 206,
+        "valeur_vert": 139,
+        "valeur_bleu": 83,
+        "code_hex": "#CE8B53",
+        "created_at": "2026-09-22T10:30:00"
+      },
+      {
+        "id": "a1b2c3d4-0007-4000-8000-000000000003",
+        "nom": "Terre Cuite",
+        "valeur_rouge": 186,
+        "valeur_vert": 73,
+        "valeur_bleu": 52,
+        "code_hex": "#BA4934",
+        "created_at": "2026-09-22T10:30:00"
+      },
+      {
+        "id": "a1b2c3d4-0007-4000-8000-000000000004",
+        "nom": "Rouille",
+        "valeur_rouge": 119,
+        "valeur_vert": 44,
+        "valeur_bleu": 34,
+        "code_hex": "#772C22",
+        "created_at": "2026-09-22T10:30:00"
+      }
+    ]
+  },
+  {
+    "id": "8fc39d2f-57fb-42c9-1f5e-5dce49211208",
+    "nom": "Cyberpunk",
+    "created_at": "2026-09-22T10:35:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0008-4000-8000-000000000001",
+        "nom": "Jaune Cyber",
+        "valeur_rouge": 254,
+        "valeur_vert": 231,
+        "valeur_bleu": 21,
+        "code_hex": "#FEE715",
+        "created_at": "2026-09-22T10:35:00"
+      },
+      {
+        "id": "a1b2c3d4-0008-4000-8000-000000000002",
+        "nom": "Rouge Électrique",
+        "valeur_rouge": 255,
+        "valeur_vert": 0,
+        "valeur_bleu": 60,
+        "code_hex": "#FF003C",
+        "created_at": "2026-09-22T10:35:00"
+      },
+      {
+        "id": "a1b2c3d4-0008-4000-8000-000000000003",
+        "nom": "Matrice Cyan",
+        "valeur_rouge": 0,
+        "valeur_vert": 230,
+        "valeur_bleu": 255,
+        "code_hex": "#00E6FF",
+        "created_at": "2026-09-22T10:35:00"
+      },
+      {
+        "id": "a1b2c3d4-0008-4000-8000-000000000004",
+        "nom": "Gris Carbone",
+        "valeur_rouge": 26,
+        "valeur_vert": 26,
+        "valeur_bleu": 29,
+        "code_hex": "#1A1A1D",
+        "created_at": "2026-09-22T10:35:00"
+      }
+    ]
+  },
+  {
+    "id": "90d4ae30-680c-43da-206f-6edf5a322309",
+    "nom": "Minimaliste Nordique",
+    "created_at": "2026-09-22T10:40:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0009-4000-8000-000000000001",
+        "nom": "Blanc Craie",
+        "valeur_rouge": 248,
+        "valeur_vert": 249,
+        "valeur_bleu": 250,
+        "code_hex": "#F8F9FA",
+        "created_at": "2026-09-22T10:40:00"
+      },
+      {
+        "id": "a1b2c3d4-0009-4000-8000-000000000002",
+        "nom": "Gris Brume",
+        "valeur_rouge": 206,
+        "valeur_vert": 212,
+        "valeur_bleu": 218,
+        "code_hex": "#CED4DA",
+        "created_at": "2026-09-22T10:40:00"
+      },
+      {
+        "id": "a1b2c3d4-0009-4000-8000-000000000003",
+        "nom": "Ardoise",
+        "valeur_rouge": 108,
+        "valeur_vert": 117,
+        "valeur_bleu": 125,
+        "code_hex": "#6C757D",
+        "created_at": "2026-09-22T10:40:00"
+      },
+      {
+        "id": "a1b2c3d4-0009-4000-8000-000000000004",
+        "nom": "Fjord Nuit",
+        "valeur_rouge": 33,
+        "valeur_vert": 37,
+        "valeur_bleu": 41,
+        "code_hex": "#212529",
+        "created_at": "2026-09-22T10:40:00"
+      }
+    ]
+  },
+  {
+    "id": "a1e5bf41-791d-44eb-3170-7fe06b433410",
+    "nom": "Baies Rouges",
+    "created_at": "2026-09-22T10:45:00",
+    "couleurs": [
+      {
+        "id": "a1b2c3d4-0010-4000-8000-000000000001",
+        "nom": "Framboise",
+        "valeur_rouge": 184,
+        "valeur_vert": 13,
+        "valeur_bleu": 87,
+        "code_hex": "#B80D57",
+        "created_at": "2026-09-22T10:45:00"
+      },
+      {
+        "id": "a1b2c3d4-0010-4000-8000-000000000002",
+        "nom": "Mûre",
+        "valeur_rouge": 112,
+        "valeur_vert": 12,
+        "valeur_bleu": 70,
+        "code_hex": "#700C46",
+        "created_at": "2026-09-22T10:45:00"
+      },
+      {
+        "id": "a1b2c3d4-0010-4000-8000-000000000003",
+        "nom": "Cassis",
+        "valeur_rouge": 74,
+        "valeur_vert": 11,
+        "valeur_bleu": 61,
+        "code_hex": "#4A0B3D",
+        "created_at": "2026-09-22T10:45:00"
+      },
+      {
+        "id": "a1b2c3d4-0010-4000-8000-000000000004",
+        "nom": "Groseille",
+        "valeur_rouge": 226,
+        "valeur_vert": 56,
+        "valeur_bleu": 119,
+        "code_hex": "#E23877",
+        "created_at": "2026-09-22T10:45:00"
+      }
+    ]
+  }
+]

@@ -1,10 +1,9 @@
 use serde::{Serialize, Deserialize};
 use chrono::NaiveDateTime;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
+#[derive(serde::Serialize,Deserialize, Clone)]
 pub struct Couleur {
-    id: u32,
+    id: String,
     nom: String,
     valeur_rouge: u8,
     valeur_vert: u8,
@@ -15,13 +14,12 @@ pub struct Couleur {
 
 impl Couleur {
     pub fn new(
-        id: u32,
+        id: String,
         nom: String,
         valeur_rouge: u8,
         valeur_vert: u8,
         valeur_bleu: u8,
         code_hex: String,
-        created_at: NaiveDateTime,
     ) -> Self {
         Self{
             id, 
@@ -30,12 +28,12 @@ impl Couleur {
             valeur_vert, 
             valeur_bleu, 
             code_hex, 
-            created_at
+            created_at: chrono::Utc::now().naive_utc(),
         }
     }
 
-    pub fn id(&self) -> u32 { 
-        self.id 
+    pub fn id(&self) -> &str { 
+        &self.id 
     }
     
     pub fn nom(&self) -> &str { 
@@ -60,6 +58,19 @@ impl Couleur {
 
     pub fn created_at(&self) -> &NaiveDateTime { 
         &self.created_at 
+    }
+
+    pub fn set_code_hex(&mut self, code_hex: String) {
+        // TODO : Vérification code hex valide
+        self.code_hex = code_hex;
+    }
+
+    pub fn modifier_couleur_nom(&mut self, nom: String) -> Result<(), String> {
+        if nom.trim().is_empty() {
+            return Err("Le nom de la couleur ne peut pas être vide".into());
+        }
+        self.nom = nom;
+        Ok(())
     }
 
 }
