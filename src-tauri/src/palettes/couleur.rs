@@ -20,7 +20,6 @@ impl Couleur {
         valeur_vert: u8,
         valeur_bleu: u8,
         code_hex: String,
-        created_at: NaiveDateTime,
     ) -> Self {
         Self{
             id, 
@@ -29,7 +28,7 @@ impl Couleur {
             valeur_vert, 
             valeur_bleu, 
             code_hex, 
-            created_at
+            created_at: chrono::Utc::now().naive_utc(),
         }
     }
 
