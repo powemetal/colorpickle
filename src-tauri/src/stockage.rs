@@ -7,7 +7,7 @@ use crate::palettes::{palette::Palette, palettes::Palettes};
 
 const NOM_FICHIER: &str = "palettes.json";
 
-fn chemin_fichier(app: &AppHandle) -> Result<PathBuf, String> {
+pub fn chemin_fichier(app: &AppHandle) -> Result<PathBuf, String> {
     let dossier = app
         .path()
         .app_data_dir()
@@ -57,7 +57,7 @@ pub fn sauvegarder(app: &AppHandle, palettes: Palettes) -> Result<(), String> {
 
 
 // Fonction pour charger les données de test
-fn donnees_exemple() -> Vec<Palette> {
+pub fn donnees_exemple() -> Vec<Palette> {
     let contenu = include_str!("../data/palettes_exemple.json");
     serde_json::from_str(contenu).unwrap_or_default()
 }
