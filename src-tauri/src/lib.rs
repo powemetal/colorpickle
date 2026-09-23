@@ -12,6 +12,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
+            commandes::sauvegarder,
             commandes::modifier_palette_nom,
             commandes::creer_palette,
             commandes::supprimer_palette,

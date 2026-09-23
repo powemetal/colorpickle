@@ -11,7 +11,7 @@ fn charger_palettes(app: &AppHandle) -> Result<Palettes, String> {
 }
 
 #[tauri::command]
-pub fn sauvegarder(app: &AppHandle) -> Result<(), String> {
+pub fn sauvegarder(app: AppHandle) -> Result<(), String> {
     let palettes = charger_palettes(&app)?;
     stockage::sauvegarder(&app, palettes)?;
     Ok(())

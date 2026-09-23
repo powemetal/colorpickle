@@ -4,18 +4,26 @@ import { useMessage } from "../composables/useMessage";
 import { useInputMain } from "../composables/useInputMain";
 import useColorPicker from "../composables/useColorPicker";
 import { useRoute } from "vue-router";
+import { invoke } from "@tauri-apps/api/core";
 
 
 const { champRecherche } = useInputMain();
-
-
-// const { recupererCouleurPick } = useInputMain();
+const { afficherMessage } = useMessage();
 
 const { estFonce, r, g, b } = useInputMain();
 const route = useRoute();
 const { ouvrirColorPicker } = useColorPicker();
 
-const messageSauvegarde = "Données sauvegardées!";
+async function sauvegarder() {
+  try{
+    await invoke<void>("sauvegarder");
+    afficherMessage("Données sauvegardées!");
+  } catch (error) {
+    console.error(error);
+    afficherMessage("Erreur lors de la sauvegarde.", true);
+  }
+}
+
 </script>
 
 <template>
@@ -74,7 +82,7 @@ const messageSauvegarde = "Données sauvegardées!";
             </RouterLink>
 
             <button
-              @click="useMessage().afficherMessage(messageSauvegarde)"
+              @click="sauvegarder"
               class="flex bg-black/20 cursor-pointer rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
               :style="{
                 backgroundColor: estFonce(r, g, b)

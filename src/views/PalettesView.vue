@@ -2,9 +2,10 @@
   import { usePalette } from "../composables/usePalette.ts";
   const {
     palettes,
+    chargerPalettes,
     ajouterPalette,
     supprimerPalette,
-    supprimerCouleur,
+    //supprimerCouleur,
     modifierCouleurNom,
   } = usePalette();
   import type { Palette } from "../types/palette.ts";
@@ -15,9 +16,10 @@
   import ChoixCouleurs from "../components/ChoixCouleurs.vue";
   import { ref, computed } from "vue";
   import { useInputMain } from "@/composables/useInputMain.ts";
+  import { onMounted } from "vue";
 
   const couleurChoisie = ref<Couleur | null>(null);
-  const paletteChoisieId = ref<number | null>(null);
+  const paletteChoisieId = ref<string | null>(null);
   const nomCouleur = ref("");
   const { couleurEstFonce, champRecherche } = useInputMain();
 
@@ -42,14 +44,17 @@ const palettesFiltrees = computed(() =>
   })
 );
 
-  
 
   const paletteVide: Palette = {
-    id: 0,
+    id: "0",
     nom: "+",
     couleurs: [],
     createdAt: new Date(),
   };
+
+  onMounted(() => {
+  chargerPalettes();
+  });
 
 </script>
 
@@ -100,17 +105,20 @@ const palettesFiltrees = computed(() =>
           class="couleurs w-3/4 h-full overflow-y-auto rounded-r-xl scrollbar-hide"
           :class="{ 'bg-[#e2e8f04D]': paletteChoisie != null }"
         >
+          <!-- Cas 1 : Palette non sélectionnée -->
           <div v-if="paletteChoisieId === null" class="flex flex-col h-full"
           :class="couleurEstFonce ? 'text-white' : 'text-black'">
             <ChoisirPalette />
           </div>
 
-          <div v-if="paletteChoisieId === 0" class="flex flex-col h-full">
+          <!-- Cas 2 : Ajouter une palette -->
+          <div v-if="paletteChoisieId === '0'" class="flex flex-col h-full">
             <AjoutPalette :ajouterPalette="ajouterPalette" />
           </div>
 
+          <!-- Cas 3 : Palette valide sélectionnée -->
           <ChoixCouleurs
-            v-if="paletteChoisie && paletteChoisie.id !== 0"
+            v-if="paletteChoisie && paletteChoisie.id !== null"
             :palette="paletteChoisie"
             :paletteChoisieId="paletteChoisieId"
             @select="
@@ -130,7 +138,7 @@ const palettesFiltrees = computed(() =>
           class="px-2 py-1 bg-white/10 rounded border border-white/10 hover:bg-white/20 transition-all duration-150 whitespace-nowrap"
           :class="couleurEstFonce ? 'text-white' : 'text-black'"
           @click="
-            paletteChoisie && supprimerPalette(paletteChoisie);
+            paletteChoisie && supprimerPalette(paletteChoisie.id);
             paletteChoisieId = null;
           "
         >
@@ -173,7 +181,7 @@ const palettesFiltrees = computed(() =>
           @click="
             couleurChoisie &&
               paletteChoisie &&
-              supprimerCouleur(couleurChoisie.id, paletteChoisie);
+              //supprimerCouleur(couleurChoisie.id, paletteChoisie);
             ((couleurChoisie = null), (nomCouleur = ''));
           "
         >

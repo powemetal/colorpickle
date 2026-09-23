@@ -1,7 +1,7 @@
 import { Couleur } from "./couleur"
 
 export interface Palette {
-  id: number;
+  id: string;
   nom: string;
   couleurs: Couleur[];
   createdAt: Date;

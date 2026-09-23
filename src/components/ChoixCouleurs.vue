@@ -6,7 +6,7 @@ import { Couleur } from "@/types/couleur.ts"
 
     const props = defineProps<{
         palette: Palette | null
-        paletteChoisieId: number | null
+        paletteChoisieId: string | null
     }>()
     const couleurChoisie = ref<Couleur | null>(null)
     
@@ -18,7 +18,7 @@ import { Couleur } from "@/types/couleur.ts"
 
 <template>
         <div 
-            v-if="props.palette && props.palette.id !== 0"
+            v-if="props.palette && props.palette.id !== null"
             class="grid grid-cols-4 sm:grid-cols-4 gap-1 "
             >
                 <CarteCouleur
