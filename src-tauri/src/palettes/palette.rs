@@ -4,7 +4,8 @@ use uuid::Uuid;
 
 use crate::palettes::couleur::Couleur;
 
-#[derive(serde::Serialize, Deserialize, Clone)]
+#[derive(Debug, serde::Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct Palette {
     id: String,
     nom: String,

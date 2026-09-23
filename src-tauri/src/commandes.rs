@@ -11,26 +11,26 @@ fn charger_palettes(app: &AppHandle) -> Result<Palettes, String> {
 }
 
 #[tauri::command]
-pub fn sauvegarder(app: &AppHandle) -> Result<(), String> {
+pub fn sauvegarder(app: AppHandle) -> Result<(), String> {
     let palettes = charger_palettes(&app)?;
     stockage::sauvegarder(&app, palettes)?;
     Ok(())
 }
 
 #[tauri::command]
-pub fn recuperer_palettes(app: &AppHandle) -> Result<Palettes, String> {
+pub fn recuperer_palettes(app: AppHandle) -> Result<Palettes, String> {
     charger_palettes(&app)
 }
 
 #[tauri::command]
-pub fn creer_palette(app: tauri::AppHandle, nom: &str) -> Result<(), String> {
+pub fn creer_palette(app: tauri::AppHandle, nom: &str) -> Result<Palette, String> {
     let mut palettes = charger_palettes(&app)?;
 
     let nouvelle_palette = Palette::new(nom.to_string(), vec![]);
     palettes.ajouter_palette(nouvelle_palette.clone());
 
     stockage::sauvegarder(&app, palettes)?;
-    Ok(())
+    Ok(nouvelle_palette)
 }
 
 #[tauri::command]
@@ -44,7 +44,7 @@ pub fn supprimer_palette(app: tauri::AppHandle, id: &str) -> Result<(), String> 
 }
 
 #[tauri::command]
-pub fn modifier_nom_palette(app: tauri::AppHandle, id: &str, nom: &str) -> Result<(), String> {
+pub fn modifier_palette_nom(app: tauri::AppHandle, id: &str, nom: &str) -> Result<(), String> {
     let mut palettes = charger_palettes(&app)?;
 
     let palette = palettes.trouver_palette(id).ok_or("Cette palette n'existe pas.")?;

@@ -45,7 +45,7 @@ fn test_supprimer_palette() {
 }
 
 #[test]
-fn test_modifier_nom_palette() {
+fn test_modifier_palette_nom() {
     let mut palettes = Palettes::new(vec![]);
     let palette = Palette::new("Ancien Nom".to_string(), vec![]);
     let id = palette.id().to_string();
@@ -119,7 +119,7 @@ fn test_simulation_workflow_complet() {
         .ajouter_couleur(c1)
         .unwrap();
 
-    // 3. modifier_nom_palette
+    // 3. modifier_palette_nom
     palettes
         .trouver_palette(&id_p)
         .unwrap()

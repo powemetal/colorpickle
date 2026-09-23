@@ -1,7 +1,10 @@
 use crate::palettes::palette::Palette;
+use serde::{Serialize, Deserialize};
 
 
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(transparent)]
 pub struct Palettes {
     palettes: Vec<Palette>,
 }

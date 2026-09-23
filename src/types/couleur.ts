@@ -1,5 +1,5 @@
 export interface Couleur {
-  id: number;
+  id: string;
   nom: string;
   valeurRouge: number;
   valeurVert: number;

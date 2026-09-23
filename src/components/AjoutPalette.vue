@@ -10,8 +10,8 @@
         ajouterPalette: (nom: string) => void
     }>()
 
-    const soumettrePalette = () => {
-        props.ajouterPalette(nouveauNom.value)
+    const soumettrePalette = async () => {
+        await props.ajouterPalette(nouveauNom.value)
         nouveauNom.value = ""
     }
 
