@@ -5,7 +5,7 @@
     chargerPalettes,
     ajouterPalette,
     supprimerPalette,
-    //supprimerCouleur,
+    supprimerCouleur,
     modifierCouleurNom,
   } = usePalette();
   import type { Palette } from "../types/palette.ts";
@@ -179,9 +179,10 @@ const palettesFiltrees = computed(() =>
           class="px-2 py-1 bg-white/10  rounded border border-white/10 hover:bg-white/20 transition-all duration-150 whitespace-nowrap"
           :class="couleurEstFonce ? 'text-white' : 'text-black'"
           @click="
+          console.log('clic', couleurChoisie, paletteChoisie)
             couleurChoisie &&
               paletteChoisie &&
-              //supprimerCouleur(couleurChoisie.id, paletteChoisie);
+              supprimerCouleur(paletteChoisie.id, couleurChoisie.id);
             ((couleurChoisie = null), (nomCouleur = ''));
           "
         >
