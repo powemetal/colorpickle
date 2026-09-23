@@ -1,19 +1,22 @@
 use crate::palettes::palette::Palette;
+use serde::{Serialize, Deserialize};
 
 
 
-// pub struct Palettes {
-//     palettes: Vec<Palette>,
-// }
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(transparent)]
+pub struct Palettes {
+    palettes: Vec<Palette>,
+}
 
 impl Palettes {
     pub fn new(palettes: Vec<Palette>) -> Self {
         Self { palettes }
     }
 
-//     pub fn ajouter_palette(&mut self, palette: Palette) {
-//         self.palettes.push(palette);
-//     }
+    pub fn ajouter_palette(&mut self, palette: Palette) {
+        self.palettes.push(palette);
+    }
 
     pub fn supprimer_palette(&mut self, id: &str) -> Result<(), String> {
         let avant = self.palettes.len();

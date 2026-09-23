@@ -13,6 +13,9 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             commandes::modifier_palette_nom,
+            commandes::creer_palette,
+            commandes::supprimer_palette,
+            commandes::recuperer_palettes,
             start_color_pick,
             read_pixel_at,
             confirm_color_pick,

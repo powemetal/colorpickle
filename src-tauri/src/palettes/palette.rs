@@ -4,7 +4,8 @@ use uuid::Uuid;
 
 use crate::palettes::couleur::Couleur;
 
-#[derive(serde::Serialize, Deserialize, Clone)]
+#[derive(Debug, serde::Serialize, Deserialize, Clone)]
+#[serde(rename_all = "camelCase")]
 pub struct Palette {
     id: String,
     nom: String,
@@ -87,9 +88,9 @@ impl Palette {
 }
 
 // fonctions nécessitant la liste des palettes donc hors de Palette^
-pub fn trouver_palette_mut(palettes: &mut Vec<Palette>, id: u32) -> Result<&mut Palette, String> {
-    palettes
-        .iter_mut()
-        .find(|p| p.id() == id)
-        .ok_or_else(|| "Palette introuvable".to_string())
-}
+// pub fn trouver_palette_mut(palettes: &mut Vec<Palette>, id: u32) -> Result<&mut Palette, String> {
+//     palettes
+//         .iter_mut()
+//         .find(|p| p.id() == id)
+//         .ok_or_else(|| "Palette introuvable".to_string())
+// }
