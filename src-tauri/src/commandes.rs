@@ -95,3 +95,16 @@ pub fn supprimer_couleur(app: tauri::AppHandle, id_palette: &str, id_couleur: &s
     stockage::sauvegarder(&app, palettes)?;
     Ok(())
 }
+
+#[tauri::command]
+pub fn modifier_couleur_nom(app: tauri::AppHandle, id_palette: &str, id_couleur: &str, nom: String) -> Result<(), String> {
+    let mut palettes = charger_palettes(&app)?;
+    let palette = palettes.trouver_palette(id_palette).ok_or("Cette palette n'existe pas.")?;
+
+    let couleur_selectionnee = palette.trouver_couleur_mut(&id_couleur).ok_or("Cette couleur n'existe pas.")?;
+
+    couleur_selectionnee.modifier_couleur_nom(nom)?;
+
+    stockage::sauvegarder(&app, palettes)?;
+    Ok(())
+}

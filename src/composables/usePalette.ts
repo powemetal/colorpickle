@@ -97,15 +97,25 @@ export function usePalette() {
     }
   }
 
-  function modifierCouleurNom(c: Couleur, p: Palette, nom: string) {
+  async function modifierCouleurNom(id_palette: string, id_couleur: string, nom: string) {
     try {
-      const couleur = p.couleurs.find((coul) => coul.id === c.id);
+      const palette = palettes.value.find((pa) => pa.id === id_palette);
+
+      if (!palette) {
+        afficherMessage("Aucune palette n'est sélectionnée.", true);
+        return;
+      }
+
+      const couleur = palette.couleurs.find((couleur) => couleur.id === id_couleur);
       if (!couleur) {
         afficherMessage("Couleur non trouvée.", true);
         return;
       }
+
       couleur.nom = nom;
+      await invoke("modifier_couleur_nom", {idPalette: id_palette, idCouleur: id_couleur, nom})
       afficherMessage("Nom de la couleur modifiée !");
+
     } catch (error) {
       console.error(error);
       afficherMessage(

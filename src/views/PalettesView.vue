@@ -16,7 +16,6 @@
   import ChoixCouleurs from "../components/ChoixCouleurs.vue";
   import { ref, computed } from "vue";
   import { useInputMain } from "@/composables/useInputMain.ts";
-  import { onMounted } from "vue";
 
   const couleurChoisie = ref<Couleur | null>(null);
   const paletteChoisieId = ref<string | null>(null);
@@ -150,7 +149,7 @@ const palettesFiltrees = computed(() =>
           @keyup.enter="
             couleurChoisie &&
             paletteChoisie &&
-            modifierCouleurNom(couleurChoisie, paletteChoisie, nomCouleur)
+            modifierCouleurNom(paletteChoisie.id, couleurChoisie.id, nomCouleur)
           "
         />
       </div>
@@ -162,7 +161,7 @@ const palettesFiltrees = computed(() =>
           @click="
             couleurChoisie &&
             paletteChoisie &&
-            modifierCouleurNom(couleurChoisie, paletteChoisie, nomCouleur)
+            modifierCouleurNom(paletteChoisie.id, couleurChoisie.id, nomCouleur)
           "
         >
           Enregistrer
