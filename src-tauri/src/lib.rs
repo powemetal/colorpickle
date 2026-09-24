@@ -3,13 +3,19 @@ pub mod stockage;
 pub mod commandes;
 pub mod palettes;
 
+// le plugin est utilisé pour la fonction d'exportation des données
+
+
+
 use crate::color_pick::{
     cancel_color_pick, confirm_color_pick, read_pixel_at, start_color_pick,
 };
 
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
+        .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_opener::init())
         .invoke_handler(tauri::generate_handler![
             commandes::sauvegarder,
@@ -20,6 +26,7 @@ pub fn run() {
             commandes::supprimer_couleur,
             commandes::ajouter_couleur,
             commandes::modifier_couleur_nom,
+            commandes::exporter_donnees,
             start_color_pick,
             read_pixel_at,
             confirm_color_pick,

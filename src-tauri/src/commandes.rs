@@ -55,7 +55,7 @@ pub fn modifier_palette_nom(app: tauri::AppHandle, id: &str, nom: &str) -> Resul
 }
 
 // j'ai essayé de faire passer une classe Couleur mais j'avais des problèmes avec la sérialisation ou déserialisation du created_at
-// alors j'ai décidé de manuellement recréer l'objet sans ce champ
+// alors j'ai décidé de manuellement recréer l'objet sans ce champ [MathG]
 #[tauri::command]
 pub fn ajouter_couleur(
     app: tauri::AppHandle,
@@ -106,5 +106,16 @@ pub fn modifier_couleur_nom(app: tauri::AppHandle, id_palette: &str, id_couleur:
     couleur_selectionnee.modifier_couleur_nom(nom)?;
 
     stockage::sauvegarder(&app, palettes)?;
+    Ok(())
+}
+
+// puisqu'on sauvegarde après chaque fonction, le bouton sauvegardé n'avait plus vraiment d'usage il a été changé pour un export de fichier
+#[tauri::command]
+pub fn exporter_donnees(app: tauri::AppHandle, chemin_destination: String) -> Result<(), String> {
+    let palettes = charger_palettes(&app)?;
+    let json = serde_json::to_string_pretty(&palettes).map_err(|e| e.to_string())?;
+
+    std::fs::write(chemin_destination, json).map_err(|e| e.to_string())?;
+
     Ok(())
 }

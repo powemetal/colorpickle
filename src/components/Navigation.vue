@@ -5,6 +5,8 @@ import { useInputMain } from "../composables/useInputMain";
 import useColorPicker from "../composables/useColorPicker";
 import { useRoute } from "vue-router";
 import { invoke } from "@tauri-apps/api/core";
+import { save } from "@tauri-apps/plugin-dialog";
+
 
 
 const { champRecherche } = useInputMain();
@@ -14,13 +16,19 @@ const { estFonce, r, g, b } = useInputMain();
 const route = useRoute();
 const { ouvrirColorPicker } = useColorPicker();
 
-async function sauvegarder() {
-  try{
-    await invoke<void>("sauvegarder");
-    afficherMessage("Données sauvegardées!");
+async function exporterDonnees() {
+  try {
+    const chemin = await save({
+      defaultPath: "palettes.json",
+      filters: [{name: "JSON", extensions: ["json"]}],
+    });
+    if (!chemin) return;
+
+    await invoke<void>("exporter_donnees", {cheminDestination: chemin});
+    afficherMessage("Palettes exportées!");
   } catch (error) {
     console.error(error);
-    afficherMessage("Erreur lors de la sauvegarde.", true);
+    afficherMessage("Erreur lors de l'export.", true);
   }
 }
 
@@ -82,7 +90,7 @@ async function sauvegarder() {
             </RouterLink>
 
             <button
-              @click="sauvegarder"
+              @click="exporterDonnees"
               class="flex bg-black/20 cursor-pointer rounded-3xl w-18 h-12 justify-center items-center mx-2 hover:border-4 hover:border-solid hover:border-black/10"
               :style="{
                 backgroundColor: estFonce(r, g, b)
