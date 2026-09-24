@@ -30,12 +30,12 @@ export function usePalette() {
         return;
       }
 
-      const nouvelleCouleur = await invoke<Couleur>("ajouter_couleur", {
+      await invoke<Couleur>("ajouter_couleur", {
         idPalette: id_palette,
         ...donnees,
         })
 
-      palette.couleurs.push(nouvelleCouleur);
+      palettes.value = await invoke<Palette[]>("recuperer_palettes");
 
       afficherMessage(`Couleur ajoutée à la palette ${palette.nom} !`);
 
@@ -65,7 +65,7 @@ export function usePalette() {
 
       await invoke<void>("supprimer_couleur", {idPalette: id_palette, idCouleur: id_couleur})
     
-      palette.couleurs = palette.couleurs.filter((c) => c.id !== id_couleur);
+      palettes.value = await invoke<Palette[]>("recuperer_palettes");
       afficherMessage("Couleur supprimée !");
 
     } catch (error) {
@@ -77,7 +77,7 @@ export function usePalette() {
   async function ajouterPalette(nom: string) {
     try {
       const nouvellePalette = await invoke<Palette>("creer_palette", {nom});
-      palettes.value.push(nouvellePalette);
+      palettes.value = await invoke<Palette[]>("recuperer_palettes");
       console.log(nouvellePalette);
       afficherMessage(`Palette \"${nom}\" ajoutée !`);
     } catch (error) {
@@ -89,7 +89,7 @@ export function usePalette() {
   async function supprimerPalette(id: string) {
     try {
       await invoke<void>("supprimer_palette", {id});
-      palettes.value = palettes.value.filter((palette) => palette.id !== id);
+      palettes.value = await invoke<Palette[]>("recuperer_palettes");
       afficherMessage("Palette supprimée !");
     } catch (error) {
       console.error(error);
@@ -112,10 +112,10 @@ export function usePalette() {
         return;
       }
 
-      couleur.nom = nom;
       await invoke("modifier_couleur_nom", {idPalette: id_palette, idCouleur: id_couleur, nom})
-      afficherMessage("Nom de la couleur modifiée !");
+      palettes.value = await invoke<Palette[]>("recuperer_palettes");
 
+      afficherMessage("Nom de la couleur modifiée !");
     } catch (error) {
       console.error(error);
       afficherMessage(
@@ -128,7 +128,7 @@ export function usePalette() {
   async function modifierPaletteNom(p: Palette, nom: string) {
     try {
       await invoke("modifier_palette_nom", {id: p.id, nom});
-      p.nom = nom;
+      palettes.value = await invoke<Palette[]>("recuperer_palettes");
       afficherMessage("Nom de la palette modifiée !");
     } catch (error) {
       console.error(error);

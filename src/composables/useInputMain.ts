@@ -10,12 +10,7 @@ const displayValue = ref(codeHex.value);
 const r = ref(65);
 const g = ref(95);
 const b = ref(66);
-const paletteCourante: Palette = {
-  id: 1,
-  nom: "Design",
-  couleurs: [],
-  createdAt: new Date(Date.now()),
-};
+const paletteCourante: Palette | undefined = undefined; 
 
 const champRecherche = ref("")
 

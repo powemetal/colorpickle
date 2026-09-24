@@ -5,7 +5,7 @@ import { useMessage } from "./useMessage";
 import { useInputMain } from "./useInputMain";
 
 const { afficherMessage } = useMessage();
-const { codeHex, r, g, b, calculerValeursRGB } = useInputMain();
+const { codeHex, r, g, b, calculerValeursRGB, copierAuPressePapier} = useInputMain();
 
 export default function useColorPicker() {
   const mouseX = ref(0);
@@ -71,6 +71,8 @@ export default function useColorPicker() {
       r.value = rgb.r;
       g.value = rgb.g;
       b.value = rgb.b;
+
+      copierAuPressePapier(`#${hex}`)
 
       afficherMessage("Couleur récupérée avec succès !");
     });
