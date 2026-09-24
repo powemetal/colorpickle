@@ -3,6 +3,7 @@
     import { ref } from "vue"
     import CarteCouleur from "../components/CarteCouleur.vue"
 import { Couleur } from "@/types/couleur.ts"
+import { copierAuPressePapier } from "@/composables/useInputMain.ts"
 
     const props = defineProps<{
         palette: Palette | null
@@ -33,6 +34,7 @@ import { Couleur } from "@/types/couleur.ts"
                     } else {
                         couleurChoisie = couleur;
                         $emit('select', couleur);
+                        copierAuPressePapier(`${couleur.codeHex}`);
                     }"
                     :selected="couleurChoisie?.id === couleur.id"
                     :class="{ 'bg-[#e2e8f04D] text-black rounded-full': couleurChoisie?.id === couleur.id }"

@@ -4,6 +4,7 @@ import { palettes as palettesSource } from "../data/paletteExamples.ts";
 import { Couleur } from "../types/couleur.ts";
 import { useMessage } from "./useMessage.ts";
 import {invoke} from '@tauri-apps/api/core'
+import { copierAuPressePapier } from "./useInputMain.ts";
 
 export const palettes = ref<Palette[]>(
   JSON.parse(JSON.stringify(palettesSource)),
@@ -138,6 +139,7 @@ export function usePalette() {
       );
     }
   }
+
 
   return {
     palettes,

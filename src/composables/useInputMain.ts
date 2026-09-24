@@ -57,7 +57,7 @@ function onChange() {
   }
 }
 
-async function copierAuPressePapier(text: string) {
+export async function copierAuPressePapier(text: string) {
   try {
     await navigator.clipboard.writeText(text);
     afficherMessage("Code hex copié avec succès !");
