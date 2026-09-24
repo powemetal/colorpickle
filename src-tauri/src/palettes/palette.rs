@@ -85,4 +85,8 @@ impl Palette {
 
         Ok(())
     }
+
+    pub fn trouver_couleur_mut(&mut self, id: &str) -> Option<&mut Couleur> {
+        self.couleurs.iter_mut().find(|c| c.id() == id)
+    }
 }

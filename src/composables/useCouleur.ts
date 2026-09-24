@@ -9,16 +9,16 @@ export function useCouleur() {
     return luminance <= 127;
   }
 
-
-  function creationCouleur(nomNouvelleCouleur: string, r: number, g: number, b:number, displayValue: string): Couleur {
+  // ne retourne plus un Couleur complet, seulement un partiel des informations d'où le Omit
+  // auparavant on retournait un id et un createdAt créé par le frontend qui ne sont pas nécessaires puisque le 
+  // backend s'en charge deja
+  function creationCouleur(nomNouvelleCouleur: string, r: number, g: number, b:number, displayValue: string): Omit<Couleur, "id" | "createdAt"> {
     return {
-      id: Date.now(),
       nom: nomNouvelleCouleur,
       valeurRouge: r,
       valeurVert: g,
       valeurBleu: b,
       codeHex: "#" + displayValue,
-      createdAt: new Date(),
     };
   }
 

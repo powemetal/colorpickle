@@ -54,15 +54,35 @@ pub fn modifier_palette_nom(app: tauri::AppHandle, id: &str, nom: &str) -> Resul
     Ok(())
 }
 
+// j'ai essayé de faire passer une classe Couleur mais j'avais des problèmes avec la sérialisation ou déserialisation du created_at
+// alors j'ai décidé de manuellement recréer l'objet sans ce champ [MathG]
 #[tauri::command]
-pub fn ajouter_couleur(app: tauri::AppHandle, id_palette: &str, couleur: Couleur) -> Result<(), String> {
+pub fn ajouter_couleur(
+    app: tauri::AppHandle,
+    id_palette: String,
+    nom: String,
+    valeur_rouge: u8,
+    valeur_vert: u8,
+    valeur_bleu: u8,
+    code_hex: String,
+    ) -> Result<Couleur, String> {
+
     let mut palettes = charger_palettes(&app)?;
 
-    let palette = palettes.trouver_palette(id_palette).ok_or("Cette palette n'existe pas.")?;
-    palette.ajouter_couleur(couleur)?;
+    let palette = palettes.trouver_palette(&id_palette).ok_or("Cette palette n'existe pas.")?;
+    let couleur = Couleur::new(
+        uuid::Uuid::new_v4().to_string(), // cette façon de générer un id m'a été proposée par l'IA [MathG]
+        nom,
+        valeur_rouge,
+        valeur_vert,
+        valeur_bleu,
+        code_hex,
+    );
+
+    palette.ajouter_couleur(couleur.clone())?;
 
     stockage::sauvegarder(&app, palettes)?;
-    Ok(())
+    Ok(couleur)
 }
 
 #[tauri::command]
@@ -73,5 +93,29 @@ pub fn supprimer_couleur(app: tauri::AppHandle, id_palette: &str, id_couleur: &s
     palette.supprimer_couleur(id_couleur)?;
 
     stockage::sauvegarder(&app, palettes)?;
+    Ok(())
+}
+
+#[tauri::command]
+pub fn modifier_couleur_nom(app: tauri::AppHandle, id_palette: &str, id_couleur: &str, nom: String) -> Result<(), String> {
+    let mut palettes = charger_palettes(&app)?;
+    let palette = palettes.trouver_palette(id_palette).ok_or("Cette palette n'existe pas.")?;
+
+    let couleur_selectionnee = palette.trouver_couleur_mut(&id_couleur).ok_or("Cette couleur n'existe pas.")?;
+
+    couleur_selectionnee.modifier_couleur_nom(nom)?;
+
+    stockage::sauvegarder(&app, palettes)?;
+    Ok(())
+}
+
+// puisqu'on sauvegarde après chaque fonction, le bouton sauvegardé n'avait plus vraiment d'usage il a été changé pour un export de fichier
+#[tauri::command]
+pub fn exporter_donnees(app: tauri::AppHandle, chemin_destination: String) -> Result<(), String> {
+    let palettes = charger_palettes(&app)?;
+    let json = serde_json::to_string_pretty(&palettes).map_err(|e| e.to_string())?;
+
+    std::fs::write(chemin_destination, json).map_err(|e| e.to_string())?;
+
     Ok(())
 }

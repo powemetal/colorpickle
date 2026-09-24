@@ -5,7 +5,7 @@
     chargerPalettes,
     ajouterPalette,
     supprimerPalette,
-    //supprimerCouleur,
+    supprimerCouleur,
     modifierCouleurNom,
   } = usePalette();
   import type { Palette } from "../types/palette.ts";
@@ -16,7 +16,6 @@
   import ChoixCouleurs from "../components/ChoixCouleurs.vue";
   import { ref, computed } from "vue";
   import { useInputMain } from "@/composables/useInputMain.ts";
-  import { onMounted } from "vue";
 
   const couleurChoisie = ref<Couleur | null>(null);
   const paletteChoisieId = ref<string | null>(null);
@@ -51,11 +50,6 @@ const palettesFiltrees = computed(() =>
     couleurs: [],
     createdAt: new Date(),
   };
-
-  onMounted(() => {
-  chargerPalettes();
-  });
-
 </script>
 
 <template>
@@ -155,7 +149,7 @@ const palettesFiltrees = computed(() =>
           @keyup.enter="
             couleurChoisie &&
             paletteChoisie &&
-            modifierCouleurNom(couleurChoisie, paletteChoisie, nomCouleur)
+            modifierCouleurNom(paletteChoisie.id, couleurChoisie.id, nomCouleur)
           "
         />
       </div>
@@ -167,7 +161,7 @@ const palettesFiltrees = computed(() =>
           @click="
             couleurChoisie &&
             paletteChoisie &&
-            modifierCouleurNom(couleurChoisie, paletteChoisie, nomCouleur)
+            modifierCouleurNom(paletteChoisie.id, couleurChoisie.id, nomCouleur)
           "
         >
           Enregistrer
@@ -181,7 +175,7 @@ const palettesFiltrees = computed(() =>
           @click="
             couleurChoisie &&
               paletteChoisie &&
-              //supprimerCouleur(couleurChoisie.id, paletteChoisie);
+              supprimerCouleur(paletteChoisie.id, couleurChoisie.id);
             ((couleurChoisie = null), (nomCouleur = ''));
           "
         >

@@ -22,15 +22,23 @@ async function chargerPalettes() {
 }
 
 export function usePalette() {
-  function ajouterCouleur(c: Couleur, p: Palette) {
+  async function ajouterCouleur(id_palette: string, donnees: Omit<Couleur, "id" | "createdAt">) {
     try {
-      const palette = palettes.value.find((pa) => pa.id === p.id);
+      const palette = palettes.value.find((pa) => pa.id === id_palette);
       if (!palette) {
         afficherMessage("Aucune palette n'est sélectionnée.", true);
         return;
       }
-      palette.couleurs.push(c);
+
+      const nouvelleCouleur = await invoke<Couleur>("ajouter_couleur", {
+        idPalette: id_palette,
+        ...donnees,
+        })
+
+      palette.couleurs.push(nouvelleCouleur);
+
       afficherMessage(`Couleur ajoutée à la palette ${palette.nom} !`);
+
     } catch (error) {
       console.error(error);
       afficherMessage(
@@ -40,20 +48,31 @@ export function usePalette() {
     }
   }
 
-  // function supprimerCouleur(id: number, p: Palette) {
-  //   try {
-  //     const palette = palettes.value.find((pa) => pa.id === p.id);
-  //     if (!palette) {
-  //       afficherMessage("Aucune palette n'est sélectionnée.", true);
-  //       return;
-  //     }
-  //     palette.couleurs = palette.couleurs.filter((c) => c.id !== id);
-  //     afficherMessage("Couleur supprimée !");
-  //   } catch (error) {
-  //     console.error(error);
-  //     afficherMessage("Erreur lors de la suppression d'une couleur.", true);
-  //   }
-  // }
+  async function supprimerCouleur(id_palette: string, id_couleur: string) {
+    try {
+      const palette = palettes.value.find((pa) => pa.id === id_palette);
+      const couleurExiste = palette?.couleurs.some((c) => c.id === id_couleur);
+
+      if (!palette) {
+        afficherMessage("Aucune palette n'est sélectionnée.", true);
+        return;
+      }
+
+      if (!couleurExiste) {
+        afficherMessage("La couleur n'existe pas dans la palette.", true);
+        return;
+      }
+
+      await invoke<void>("supprimer_couleur", {idPalette: id_palette, idCouleur: id_couleur})
+    
+      palette.couleurs = palette.couleurs.filter((c) => c.id !== id_couleur);
+      afficherMessage("Couleur supprimée !");
+
+    } catch (error) {
+      console.error(error);
+      afficherMessage("Erreur lors de la suppression de la couleur.", true);
+    }
+  }
 
   async function ajouterPalette(nom: string) {
     try {
@@ -78,15 +97,25 @@ export function usePalette() {
     }
   }
 
-  function modifierCouleurNom(c: Couleur, p: Palette, nom: string) {
+  async function modifierCouleurNom(id_palette: string, id_couleur: string, nom: string) {
     try {
-      const couleur = p.couleurs.find((coul) => coul.id === c.id);
+      const palette = palettes.value.find((pa) => pa.id === id_palette);
+
+      if (!palette) {
+        afficherMessage("Aucune palette n'est sélectionnée.", true);
+        return;
+      }
+
+      const couleur = palette.couleurs.find((couleur) => couleur.id === id_couleur);
       if (!couleur) {
         afficherMessage("Couleur non trouvée.", true);
         return;
       }
+
       couleur.nom = nom;
+      await invoke("modifier_couleur_nom", {idPalette: id_palette, idCouleur: id_couleur, nom})
       afficherMessage("Nom de la couleur modifiée !");
+
     } catch (error) {
       console.error(error);
       afficherMessage(
@@ -114,7 +143,7 @@ export function usePalette() {
     palettes,
     ajouterCouleur,
     chargerPalettes,
-   //supprimerCouleur,
+    supprimerCouleur,
     ajouterPalette,
     supprimerPalette,
     modifierCouleurNom,
