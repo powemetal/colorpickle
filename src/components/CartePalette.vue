@@ -17,10 +17,8 @@ const props = defineProps<{
     >
   </div>
     
-    <span v-if="props.palette.nom" :class="selected ? 'text-black font-bold' : 'text-white-50 font-normal'">
+    <span v-if="props.palette.nom" :class="selected ? 'text-black font-bold' : 'text-white-50 font-normal'" class="text-center">
       {{ props.palette.nom }}
     </span>
 </figure>
 </template>
-
-
