@@ -2,7 +2,6 @@
   import { usePalette } from "../composables/usePalette.ts";
   const {
     palettes,
-    chargerPalettes,
     ajouterPalette,
     supprimerPalette,
     supprimerCouleur,
