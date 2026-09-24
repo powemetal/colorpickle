@@ -10,10 +10,11 @@ const { afficherMessage } = useMessage();
 const { creationCouleur } = useCouleur();
 
 const { palettes, ajouterCouleur } = usePalette();
-const paletteChoisieId = ref<number | null>(palettes.value[0].id);
+const paletteChoisieId = ref<string | null>(null);
 const paletteChoisie = computed(
   () => palettes.value.find((p) => p.id === paletteChoisieId.value) || null,
 );
+
 
 const {
   displayValue,
@@ -57,8 +58,8 @@ const {
             {
               if (paletteChoisie && nomNouvelleCouleur) {
                 ajouterCouleur(
-                  creationCouleur(nomNouvelleCouleur, r, g, b, displayValue),
-                  paletteChoisie
+                  paletteChoisie.id,
+                  creationCouleur(nomNouvelleCouleur, r, g, b, displayValue)
                 );
                 nomNouvelleCouleur = '';
               } else {
@@ -86,7 +87,7 @@ const {
         </div>
         <div class="flex items-center mx-auto w-full min-w-0 gap-2">
           <select
-            v-model.number="paletteChoisieId"
+            v-model="paletteChoisieId"
             class="flex-1 min-w-0 text-center bg-gray-800/20 hover:bg-gray-600/40 transition rounded-full px-3 py-1 truncate border border-gray-600 font-semibold"
             :class="couleurEstFonce ? 'text-white' : 'text-black'"
           >
@@ -104,7 +105,7 @@ const {
             class="h-8 w-8 bg-gray-700/20 hover:bg-gray-600/40 transition rounded-full px-2 flex items-center hover:cursor-pointer disabled:cursor-not-allowed"
             @click="
               paletteChoisie && nomNouvelleCouleur
-              ?  ajouterCouleur(creationCouleur(nomNouvelleCouleur, r, g, b, displayValue), paletteChoisie)
+              ?  ajouterCouleur(paletteChoisie.id, creationCouleur(nomNouvelleCouleur, r, g, b, displayValue))
               :  afficherMessage(`Veuillez entrer un nom de couleur!`, true);
             "
 

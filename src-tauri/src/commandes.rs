@@ -54,15 +54,35 @@ pub fn modifier_palette_nom(app: tauri::AppHandle, id: &str, nom: &str) -> Resul
     Ok(())
 }
 
+// j'ai essayé de faire passer une classe Couleur mais j'avais des problèmes avec la sérialisation ou déserialisation du created_at
+// alors j'ai décidé de manuellement recréer l'objet sans ce champ
 #[tauri::command]
-pub fn ajouter_couleur(app: tauri::AppHandle, id_palette: &str, couleur: Couleur) -> Result<(), String> {
+pub fn ajouter_couleur(
+    app: tauri::AppHandle,
+    id_palette: String,
+    nom: String,
+    valeur_rouge: u8,
+    valeur_vert: u8,
+    valeur_bleu: u8,
+    code_hex: String,
+    ) -> Result<Couleur, String> {
+
     let mut palettes = charger_palettes(&app)?;
 
-    let palette = palettes.trouver_palette(id_palette).ok_or("Cette palette n'existe pas.")?;
-    palette.ajouter_couleur(couleur)?;
+    let palette = palettes.trouver_palette(&id_palette).ok_or("Cette palette n'existe pas.")?;
+    let couleur = Couleur::new(
+        uuid::Uuid::new_v4().to_string(), // cette façon de générer un id m'a été proposée par l'IA [MathG]
+        nom,
+        valeur_rouge,
+        valeur_vert,
+        valeur_bleu,
+        code_hex,
+    );
+
+    palette.ajouter_couleur(couleur.clone())?;
 
     stockage::sauvegarder(&app, palettes)?;
-    Ok(())
+    Ok(couleur)
 }
 
 #[tauri::command]

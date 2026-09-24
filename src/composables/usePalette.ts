@@ -22,15 +22,23 @@ async function chargerPalettes() {
 }
 
 export function usePalette() {
-  function ajouterCouleur(c: Couleur, p: Palette) {
+  async function ajouterCouleur(id_palette: string, donnees: Omit<Couleur, "id" | "createdAt">) {
     try {
-      const palette = palettes.value.find((pa) => pa.id === p.id);
+      const palette = palettes.value.find((pa) => pa.id === id_palette);
       if (!palette) {
         afficherMessage("Aucune palette n'est sélectionnée.", true);
         return;
       }
-      palette.couleurs.push(c);
+
+      const nouvelleCouleur = await invoke<Couleur>("ajouter_couleur", {
+        idPalette: id_palette,
+        ...donnees,
+        })
+
+      palette.couleurs.push(nouvelleCouleur);
+
       afficherMessage(`Couleur ajoutée à la palette ${palette.nom} !`);
+
     } catch (error) {
       console.error(error);
       afficherMessage(

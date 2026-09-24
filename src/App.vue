@@ -5,9 +5,11 @@ import Navigation from "./components/Navigation.vue";
 import useColorPicker from "./composables/useColorPicker.ts";
 import { computed, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
+import { usePalette } from "./composables/usePalette.ts";
 
 const route = useRoute();
 const { initMainListener, cleanMainListener } = useColorPicker();
+const { chargerPalettes } = usePalette();
 
 // Détecte si la fenêtre courante est un overlay ou la fenêtre principale
 const isOverlay = computed(() => route.path === "/overlay");
@@ -16,6 +18,10 @@ onMounted(() => {
   if (!isOverlay.value) {
     initMainListener();
   }
+});
+
+onMounted(() => {
+chargerPalettes();
 });
 
 onUnmounted(() => {

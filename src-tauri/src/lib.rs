@@ -18,6 +18,7 @@ pub fn run() {
             commandes::supprimer_palette,
             commandes::recuperer_palettes,
             commandes::supprimer_couleur,
+            commandes::ajouter_couleur,
             start_color_pick,
             read_pixel_at,
             confirm_color_pick,
