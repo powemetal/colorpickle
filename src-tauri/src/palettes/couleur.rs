@@ -1,6 +1,13 @@
 use serde::{Serialize, Deserialize};
 use chrono::NaiveDateTime;
 
+#[derive(Debug)]
+pub enum ErreurCouleur {
+    NomVide,
+    HexInvalide,
+    HexRgbIncoherent,
+}
+
 #[derive(Debug, Serialize, Deserialize, Clone)]
 #[serde(rename_all = "camelCase")]
 pub struct Couleur {
@@ -13,6 +20,7 @@ pub struct Couleur {
     created_at: NaiveDateTime,
 }
 
+// Todo: validation des donnees
 impl Couleur {
     pub fn new(
         id: String,
@@ -21,16 +29,30 @@ impl Couleur {
         valeur_vert: u8,
         valeur_bleu: u8,
         code_hex: String,
-    ) -> Self {
-        Self{
-            id, 
+    ) -> Result<Self, ErreurCouleur> {
+
+        if nom.trim().is_empty() {
+            return Err(ErreurCouleur::NomVide);
+        }
+        if !Self::hex_valide(&code_hex) {
+            return Err(ErreurCouleur::HexInvalide);
+        }
+
+        let hex_rgb = format!("{:02X}{:02X}{:02X}", valeur_rouge, valeur_vert, valeur_bleu);
+        if hex_rgb != code_hex.to_uppercase() {
+            return Err(ErreurCouleur::HexRgbIncoherent);
+        }
+
+
+        Ok(Self{
+            id,
             nom, 
             valeur_rouge, 
             valeur_vert, 
             valeur_bleu, 
             code_hex, 
             created_at: chrono::Utc::now().naive_utc(),
-        }
+        })
     }
 
     pub fn id(&self) -> &str { 
@@ -61,17 +83,30 @@ impl Couleur {
         &self.created_at 
     }
 
-    pub fn set_code_hex(&mut self, code_hex: String) {
-        // TODO : Vérification code hex valide
-        self.code_hex = code_hex;
+pub fn set_code_hex(&mut self, code_hex: String) -> Result<(), ErreurCouleur> {
+    if !Self::hex_valide(&code_hex) {
+        return Err(ErreurCouleur::HexInvalide);
     }
 
-    pub fn modifier_couleur_nom(&mut self, nom: String) -> Result<(), String> {
-        if nom.trim().is_empty() {
-            return Err("Le nom de la couleur ne peut pas être vide".into());
-        }
-        self.nom = nom;
-        Ok(())
+    let hex_rgb = format!("{:02X}{:02X}{:02X}", self.valeur_rouge, self.valeur_vert, self.valeur_bleu);
+    if hex_rgb != code_hex.to_uppercase() {
+        return Err(ErreurCouleur::HexRgbIncoherent);
+    }
+
+    self.code_hex = code_hex;
+    Ok(())
+}
+
+pub fn modifier_couleur_nom(&mut self, nom: String) -> Result<(), ErreurCouleur> {
+    if nom.trim().is_empty() {
+        return Err(ErreurCouleur::NomVide);
+    }
+    self.nom = nom;
+    Ok(())
+}
+
+    fn hex_valide(hex: &str) -> bool {
+        hex.len() == 6 && hex.chars().all(|c| c.is_ascii_hexdigit())
     }
 
 }
