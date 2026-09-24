@@ -1,15 +1,23 @@
 <script setup lang="ts">
     import type { Palette } from "../types/palette"
-    import { ref } from "vue"
+        import { ref } from "vue"
     import CarteCouleur from "../components/CarteCouleur.vue"
-import { Couleur } from "@/types/couleur.ts"
-import { copierAuPressePapier } from "@/composables/useInputMain.ts"
+    import { Couleur } from "@/types/couleur.ts"
+    import { copierAuPressePapier, useInputMain } from "@/composables/useInputMain.ts"
 
     const props = defineProps<{
         palette: Palette | null
         paletteChoisieId: string | null
     }>()
+
     const couleurChoisie = ref<Couleur | null>(null)
+
+    const {
+        r,
+        g,
+        b,
+        codeHex,
+    } = useInputMain();
     
     defineEmits(['select'])
 
@@ -35,6 +43,11 @@ import { copierAuPressePapier } from "@/composables/useInputMain.ts"
                         couleurChoisie = couleur;
                         $emit('select', couleur);
                         copierAuPressePapier(`${couleur.codeHex}`);
+                        r = couleur.valeurRouge;
+                        g = couleur.valeurVert;
+                        b = couleur.valeurBleu;
+                        codeHex = couleur.codeHex.replace('#', '');
+
                     }"
                     :selected="couleurChoisie?.id === couleur.id"
                     :class="{ 'bg-[#e2e8f04D] text-black rounded-full': couleurChoisie?.id === couleur.id }"
