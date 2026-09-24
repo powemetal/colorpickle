@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use chrono::NaiveDateTime;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum ErreurCouleur {
     NomVide,
     HexInvalide,
@@ -34,12 +34,14 @@ impl Couleur {
         if nom.trim().is_empty() {
             return Err(ErreurCouleur::NomVide);
         }
-        if !Self::hex_valide(&code_hex) {
+        let code_hex_sans_hashtag = code_hex.trim_start_matches('#');
+
+        if !Self::hex_valide(&code_hex_sans_hashtag) {
             return Err(ErreurCouleur::HexInvalide);
         }
 
         let hex_rgb = format!("{:02X}{:02X}{:02X}", valeur_rouge, valeur_vert, valeur_bleu);
-        if hex_rgb != code_hex.to_uppercase() {
+        if hex_rgb != code_hex_sans_hashtag.to_uppercase() {
             return Err(ErreurCouleur::HexRgbIncoherent);
         }
 
@@ -106,6 +108,7 @@ pub fn modifier_couleur_nom(&mut self, nom: String) -> Result<(), ErreurCouleur>
 }
 
     fn hex_valide(hex: &str) -> bool {
+        let hex = hex.strip_prefix('#').unwrap_or(hex);
         hex.len() == 6 && hex.chars().all(|c| c.is_ascii_hexdigit())
     }
 
