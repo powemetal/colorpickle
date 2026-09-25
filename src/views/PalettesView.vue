@@ -6,6 +6,7 @@
     supprimerPalette,
     supprimerCouleur,
     modifierCouleurNom,
+    modifierPaletteNom,
   } = usePalette();
   import type { Palette } from "../types/palette.ts";
   import type { Couleur } from "../types/couleur.ts";
@@ -13,6 +14,7 @@
   import AjoutPalette from "../components/AjoutPalette.vue";
   import ChoisirPalette from "../components/ChoisirPalette.vue";
   import ChoixCouleurs from "../components/ChoixCouleurs.vue";
+  import RenommerPalette from "../components/RenommerPalette.vue";
   import { ref, computed } from "vue";
   import { useInputMain } from "@/composables/useInputMain.ts";
 
@@ -20,6 +22,13 @@
   const paletteChoisieId = ref<string | null>(null);
   const nomCouleur = ref("");
   const { couleurEstFonce, champRecherche } = useInputMain();
+  const renommerPalette = ref(false);
+
+const renommerPaletteHandler = async (id: string, nom: string) => {
+  if (paletteChoisie.value) {
+      await modifierPaletteNom(paletteChoisie.value, nom);
+  }
+};
 
   const paletteChoisie = computed(
     () => palettes.value.find((p) => p.id === paletteChoisieId.value) || null,
@@ -65,7 +74,8 @@ const palettesFiltrees = computed(() =>
             @click="
               paletteChoisieId === palette.id
                 ? (paletteChoisieId = null)
-                : (paletteChoisieId = palette.id)
+                : (paletteChoisieId = palette.id);
+                renommerPalette = false;
             "
             :selected="paletteChoisie?.id === palette.id"
             :class="[
@@ -83,7 +93,8 @@ const palettesFiltrees = computed(() =>
             @click="
               paletteChoisieId === paletteVide.id
                 ? (paletteChoisieId = null)
-                : (paletteChoisieId = paletteVide.id)
+                : (paletteChoisieId = paletteVide.id);
+                renommerPalette = false;
             "
             :class="[
               paletteChoisie?.id === paletteVide.id
@@ -98,27 +109,36 @@ const palettesFiltrees = computed(() =>
           class="couleurs w-3/4 h-full overflow-y-auto rounded-r-xl scrollbar-hide"
           :class="{ 'bg-[#e2e8f04D]': paletteChoisie != null }"
         >
-          <!-- Cas 1 : Palette non sélectionnée -->
-          <div v-if="paletteChoisieId === null" class="flex flex-col h-full"
-          :class="couleurEstFonce ? 'text-white' : 'text-black'">
-            <ChoisirPalette />
-          </div>
+            <div v-if="renommerPalette && paletteChoisie != null">
+              <RenommerPalette
+                @renommer-complete="renommerPalette = false"
+                :renommerPalette="renommerPaletteHandler"
+                :paletteChoisieId="paletteChoisieId!"
+              />
+            </div>
+            <template v-else>
+            <!-- Cas 1 : Palette non sélectionnée -->
+            <div v-if="paletteChoisieId === null" class="flex flex-col h-full"
+            :class="couleurEstFonce ? 'text-white' : 'text-black'">
+              <ChoisirPalette />
+            </div>
 
-          <!-- Cas 2 : Ajouter une palette -->
-          <div v-if="paletteChoisieId === '0'" class="flex flex-col h-full">
-            <AjoutPalette :ajouterPalette="ajouterPalette" />
-          </div>
+            <!-- Cas 2 : Ajouter une palette -->
+            <div v-if="paletteChoisieId === '0'" class="flex flex-col h-full">
+              <AjoutPalette :ajouterPalette="ajouterPalette" />
+            </div>
 
-          <!-- Cas 3 : Palette valide sélectionnée -->
-          <ChoixCouleurs
-            v-if="paletteChoisie && paletteChoisie.id !== null"
-            :palette="paletteChoisie"
-            :paletteChoisieId="paletteChoisieId"
-            @select="
-              couleurChoisie = $event;
-              nomCouleur = $event?.nom || '';
-            "
-          />
+            <!-- Cas 3 : Palette valide sélectionnée -->
+            <ChoixCouleurs
+              v-if="paletteChoisie && paletteChoisie.id !== null"
+              :palette="paletteChoisie"
+              :paletteChoisieId="paletteChoisieId"
+              @select="
+                couleurChoisie = $event;
+                nomCouleur = $event?.nom || '';
+              "
+            />
+          </template>
         </div>
       </div>
     </div>
@@ -126,7 +146,7 @@ const palettesFiltrees = computed(() =>
     <div class="flex w-full h-[10%] mt-2"
     :class="couleurEstFonce ? 'text-white' : 'text-black'"
     >
-      <div class="mx-5 flex items-center">
+      <div class="mx-5 flex items-center gap-2">
         <button
           class="px-2 py-1 bg-white/10 rounded border border-white/10 hover:bg-white/20 transition-all duration-150 whitespace-nowrap"
           :class="couleurEstFonce ? 'text-white' : 'text-black'"
@@ -135,7 +155,16 @@ const palettesFiltrees = computed(() =>
             paletteChoisieId = null;
           "
         >
-          Supprimer
+          🗑️
+        </button>
+                <button
+          class="px-2 py-1 bg-white/10 rounded border border-white/10 hover:bg-white/20 transition-all duration-150 whitespace-nowrap"
+          :class="couleurEstFonce ? 'text-white' : 'text-black'"
+          @click="
+            renommerPalette = true;
+          "
+        >
+          ✏️
         </button>
       </div>
 
