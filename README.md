@@ -102,3 +102,13 @@ Pour le detail complet de l'architecture et l'arborescence des fichiers, veuille
 Mathieu Gosselin  
 Clement Laflamme  
 Francis Boisvert  
+
+# 6. Screenshots
+### Ecran Principal
+![Ecran principal](/screenshots/image.png)
+### Ecran des palettes
+![Ecran des palettes](/screenshots/image-1.png)
+### Ecran des triades
+![Ecran des triades](/screenshots/image-2.png)
+### Ecran d'ajout d'une palette
+![Ecran ajout d'une palette](/screenshots/image-3.png)
