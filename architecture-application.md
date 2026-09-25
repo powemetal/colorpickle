@@ -2,47 +2,76 @@
 
 ## Stack Technique
 - Framework Desktop : Tauri
-- Framework Frontend : Vue.js 3 (Composition API)
+- Framework Frontend : Vue.js 3
+- Backend : Rust
 - Build Tool : Vite
-- Langage : TypeScript / HTML / CSS
+- Langage : TypeScript / HTML / CSS / Rust
 - [README.md](./README.md)
 
 ## Structure des Fichiers
 
-├── index.html  
-├── vite.config.ts  
-├── package.json  
-└── src/  
-    ├── main.ts  
-    ├── App.vue  
-    ├── style.css  
-    ├── routeur/  
-    │   └── index.ts  
-    ├── services/  
-    │   └── donneesService.ts  
-    ├── data/  
-    │   └── paletteExamples.ts  
-    ├── types/  
-    │   ├── couleur.ts  
-    │   └── palette.ts  
-    ├── composables/  
-    │   ├── usePalette.ts  
-    │   ├── useCouleur.ts  
-    │   ├── useColorPicker.ts  
-    │   ├── useInputMain.ts  
-    │   ├── useMessage.ts  
-    │   └── useUtils.ts  
-    ├── components/  
-    │   ├── AjoutPalette.vue  
-    │   ├── CarteCouleur.vue  
-    │   ├── CartePalette.vue  
-    │   ├── ChoisirPalette.vue  
-    │   ├── ChoixCouleurs.vue  
-    │   ├── Navigation.vue  
-    │   ├── OverlayColorPicker.vue  
-    │   ├── Slider.vue  
-    │   └── MessageFooter.vue  
-    └── views/  
-        ├── AccueilView.vue  
-        ├── PalettesView.vue  
-        └── UtilitairesView.vue
+├── .gitignore
+├── architecture-application.md
+├── index.html
+├── package-lock.json
+├── package.json
+├── README.md
+│
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── AjoutPalette.vue
+│   │   ├── CarteCouleur.vue
+│   │   ├── CartePalette.vue
+│   │   ├── ChoisirPalette.vue
+│   │   ├── ChoixCouleurs.vue
+│   │   ├── MessageFooter.vue
+│   │   ├── Navigation.vue
+│   │   ├── OverlayColorPicker.vue
+│   │   └── Slider.vue
+│   ├── composables/
+│   │   ├── useColorPicker.ts
+│   │   ├── useCouleur.ts
+│   │   ├── useInputMain.ts
+│   │   ├── useMessage.ts
+│   │   ├── usePalette.ts
+│   │   └── useUtils.ts
+│   ├── data/
+│   │   └── paletteExamples.ts
+│   ├── routeur/
+│   │   └── index.ts
+│   ├── types/
+│   │   ├── couleur.ts
+│   │   └── palette.ts
+│   ├── views/
+│   │   ├── AccueilView.vue
+│   │   ├── PalettesView.vue
+│   │   └── UtilitairesView.vue
+│   ├── App.vue
+│   ├── main.ts
+│   ├── style.css
+│   └── vite-env.d.ts
+│
+└── src-tauri/
+    ├── capabilities/
+    │   └── default.json
+    ├── data/
+    │   └── palettes_exemple.json
+    ├── gen/
+    │   └── schemas/
+    ├── icons/
+    ├── src/
+    │   ├── palettes/               //palettes sert de dossier modeles
+    │   │   ├── couleur.rs
+    │   │   ├── mod.rs
+    │   │   ├── palette.rs
+    │   │   └── palettes.rs
+    │   ├── color_pick.rs
+    │   ├── commandes.rs
+    │   ├── lib.rs
+    │   ├── main.rs
+    │   └── stockage.rs
+    ├── build.rs
+    ├── Cargo.lock
+    ├── Cargo.toml
+    └── tauri.conf.json
