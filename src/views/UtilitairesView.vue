@@ -28,7 +28,7 @@ const { couleurComplementaire, couleursTriade } = useUtils();
       }"
     >
       <button
-        @click="copierAuPressePapier(couleurComplementaire.hex)"
+        @click="copierAuPressePapier('#' + couleurComplementaire.hex)"
         class="flex grow justify-center items-center cursor-pointer"
         :style="{
           color:couleurEstFonce ? 'black' : 'white',
@@ -58,7 +58,7 @@ const { couleurComplementaire, couleursTriade } = useUtils();
         }"
       >
         <button
-          @click="copierAuPressePapier(couleursTriade.triade1.hex)"
+          @click="copierAuPressePapier('#' + couleursTriade.triade1.hex)"
           class="flex grow justify-center items-center cursor-pointer"
           :style="{
             color: couleurEstFonce ? 'white' : 'black',
@@ -79,7 +79,7 @@ const { couleurComplementaire, couleursTriade } = useUtils();
           }"
         >
           <button
-            @click="copierAuPressePapier(couleursTriade.triade2.hex)"
+            @click="copierAuPressePapier('#' + couleursTriade.triade2.hex)"
             class="flex grow justify-center items-center cursor-pointer"
             :style="{
               color: couleurEstFonce ? 'white' : 'black',
