@@ -1,7 +1,7 @@
 use tauri::AppHandle;
 
 use crate::{
-    palettes::{couleur::Couleur, palette::Palette, palettes::Palettes}, stockage
+    palettes::{couleur::Couleur, couleur::ErreurCouleur, palette::Palette, palettes::Palettes}, stockage
 };
 
 fn charger_palettes(app: &AppHandle) -> Result<Palettes, String> {
@@ -77,7 +77,11 @@ pub fn ajouter_couleur(
         valeur_vert,
         valeur_bleu,
         code_hex,
-    );
+    ).map_err(|e| match e {
+        ErreurCouleur::NomVide => "Le nom de la couleur ne peut pas être vide.".to_string(),
+        ErreurCouleur::HexInvalide => "Le code hex de la couleur est invalide.".to_string(),
+        ErreurCouleur::HexRgbIncoherent => "Le code hex ne correspond pas aux valeurs RGB.".to_string(),
+    })?;
 
     palette.ajouter_couleur(couleur.clone())?;
 
@@ -103,7 +107,11 @@ pub fn modifier_couleur_nom(app: tauri::AppHandle, id_palette: &str, id_couleur:
 
     let couleur_selectionnee = palette.trouver_couleur_mut(&id_couleur).ok_or("Cette couleur n'existe pas.")?;
 
-    couleur_selectionnee.modifier_couleur_nom(nom)?;
+    couleur_selectionnee.modifier_couleur_nom(nom).map_err(|e| match e {
+        ErreurCouleur::NomVide => "Le nom de la couleur ne peut pas être vide.".to_string(),
+        ErreurCouleur::HexInvalide => "Le code hex de la couleur est invalide.".to_string(),
+        ErreurCouleur::HexRgbIncoherent => "Le code hex ne correspond pas aux valeurs RGB.".to_string(),
+    })?;
 
     stockage::sauvegarder(&app, palettes)?;
     Ok(())

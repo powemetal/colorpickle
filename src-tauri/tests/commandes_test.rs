@@ -12,7 +12,7 @@ fn creer_couleur_test(nom: &str, r: u8, g: u8, b: u8) -> Couleur {
         g,
         b,
         format!("#{:02X}{:02X}{:02X}", r, g, b),
-    )
+    ).unwrap()
 }
 
 #[test]

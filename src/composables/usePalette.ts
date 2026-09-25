@@ -139,6 +139,7 @@ export function usePalette() {
     }
   }
 
+
   return {
     palettes,
     ajouterCouleur,
