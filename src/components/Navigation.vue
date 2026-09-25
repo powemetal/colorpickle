@@ -123,13 +123,18 @@ async function exporterDonnees() {
               </div>
             </RouterLink>
           </div>
-          <div class="mt-3 flex justify-center">
+          <div class="mt-3 flex justify-center ">
             <input 
             type="text"
             v-if="route.name === 'palettes'"
             v-model="champRecherche"
-            placeholder="Recherche Palette"
-            class="border mt-2 text-center rounded-lg"
+            placeholder="Chercher une couleur"
+            class="border mt-2 text-center rounded-lg min-w-80 text-center p-1"
+            :style="{
+                  color: estFonce(r, g, b)
+                    ? 'rgba(256,256,256)'
+                    : 'rgba(0,0,0)',
+                }"
             />
           </div>
         </div>

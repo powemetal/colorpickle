@@ -24,7 +24,7 @@
         <h3 class="text-center">Entrez le nom de la nouvelle palette</h3>
         <input 
             type="text" 
-            class="border text-white my-3 rounded-lg"  
+            class="border text-white my-3 rounded-lg text-center p-1"  
             maxlength="15"
             v-model="nouveauNom"
             @keyup.enter="nouveauNom
