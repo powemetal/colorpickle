@@ -25,8 +25,9 @@
   const renommerPalette = ref(false);
 
 const renommerPaletteHandler = async (id: string, nom: string) => {
-  if (paletteChoisie.value) {
-      await modifierPaletteNom(paletteChoisie.value, nom);
+  const palette = palettes.value.find((p) => p.id === id);
+  if (palette) {
+      await modifierPaletteNom(palette, nom);
   }
 };
 
