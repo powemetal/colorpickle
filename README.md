@@ -2,10 +2,11 @@
 
 Application de bureau developpee avec Tauri 2 et Vue 3 permettant de creer, personnaliser, convertir et gerer des palettes de couleurs.
 
-Projet realise pour le travail pratique # 2 (TP2) dans le cadre du cours Développement d'application (bureau)  
+Projet realise pour le travail pratique 2 et 3 dans le cadre du cours Développement d'application (bureau)  
 Présenté à Mme Lilia Ould Hocine  
 (AEC en Developpement Web / Programmation - College de Maisonneuve).  
 <br>
+
 ![Tauri](https://img.shields.io/badge/Tauri-2.0-blue?logo=tauri)
 ![Vue 3](https://img.shields.io/badge/Vue.js-3-42b883?logo=vuedotjs&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
@@ -20,7 +21,7 @@ Présenté à Mme Lilia Ould Hocine
 
 * Framework Desktop : Tauri 2 (avec backend minimal Rust)
 * Framework Frontend : Vue 3 (Composition API, `<script setup>`)
-* Langage : TypeScript / HTML5 / CSS3
+* Langage : TypeScript / HTML5 / CSS3 / Rust
 * Outil de Build : Vite
 * Gestionnaire de paquets : npm
 * Routage : Vue Router
@@ -47,35 +48,47 @@ Prerequis :
    npm run tauri dev
    ```
 
+#### 2-Alt. Créer un build de l'application et lancer le .exe :
+   ```
+   npm run tauri build
+   
+   puis lancer le .exe directement du dossier src-tauri/target/release/
+   ```
+
 Une fenetre de bureau native s'ouvrira avec l'interface Vue.js.
 <br><br><br>
 
-# 3. FONCTIONNALITES DU TP2
+# 3. FONCTIONNALITES DU TP2 + TP3 (mise à jour consolidée)
 
 
 ## 1. Navigation a 3 Vues :
-   * Accueil (AccueilView.vue) : Tableau de bord presentatif et statistiques/resume global des palettes.
+   * Accueil (AccueilView.vue) : Page principale affichant la couleur sélectionnée et des sliders pour la changer en plus d'un menu d'ajout de couleur à une palette.
    * Palettes (PalettesView.vue) : Affichage de la collection complete de palettes avec options de filtrage et de recherche.
-   * Utilitaires (UtilitairesView.vue) : Outil interactif de conversion et selection de couleurs.
+   * Utilitaires (UtilitairesView.vue) : Outil interactif de conversion et selection de couleurs lié à la couleur sélectionnée par le picker. Permet de rapidement voir la couleur complémentaire et aussi les deux autres couleurs de la triade.
 
-## 2. Gestion des Donnees Simulees (Couche Service) :
-   * Les donnees sont isolees dans src/services/stockageDonnees.ts et initialisees depuis src/data/paletteExamples.ts.
-   * Le service expose des mehtodes pour recuperer, ajouter, modifier, supprimer et filtrer les donnees sans charger directement les composants.
+## 2. Gestion des Donnees:
+   * La fonction charger de stockage.rs charge le fichier de sauvegarde. Si il n'est pas trouvé des données d'exemples sont chargées. Ces données proviennent de src-tauri/data/palettes_exemple.json
+   * Le service expose des methodes pour recuperer, ajouter, modifier, supprimer et filtrer les donnees sans charger directement les composants.
 
 ## 3. Formulaire avec Validation Frontend :
-   * Formulaire complet dans AjoutPalette.vue permettant de creer une palette avec nom et selection de couleurs.
-   * Validation avant envoi : verification du champ nom obligatoire (non vide) et du nombre minimal de couleurs requis.
-   * Affichage dynamique des messages d'erreur ou de succes.
+   * Formulaire complet dans AjoutPalette.vue permettant de creer et de modifier une palette.
+   * Formulaire complet dans AccueilView.vue permettant d'ajouter une couleur à une palette.
+   * Validation avant envoi : verification du champ nom obligatoire (non vide) et du code de couleur hexadécimal lors de l'ajoute à une palette.
+   * Gestion des erreurs avec affichage dynamique des messages d'erreur ou de succes.
 
 ## 4. Interactions & Feedback Utilisateur :
-   * Recherche et Filtres : Filtrage en temps reel des palettes par nom/mots-cles.
-   * Actions multiples : Ajout, suppression avec modal de confirmation (confirmationSuppresion.vue), et modification de nuances.
-   * Calculs simples & resumes : Calcul du nombre total de palettes, nombre de couleurs stockees et conversions automatiques (HEX / RGB / HSL).
+   * Recherche et Filtres : Filtrage en temps reel des palettes par nom et nom de couleurs à l'intérieur de celles-ci.
    * Etats d'interface : Prise en charge des etats "liste vide", confirmation d'action et messages d'erreur/succes via MessageFooter.vue.
+   * Divers effets sur les boutons donnent du feedback visuel sur les éléments interactifs.
+  
+## 5. Changements notables TP2 vs TP3 :
+   * Au TP2 nous avions un Frontend prototype fonctionnel avec des données et des actions simulées, maintenant ce Frontend est lié à un backend en Rust avec une liaison par Tauri. Les données qui étaient simulées sont maintenant persistantes et sauvegardées à chaque opération.
+   * Puisqu'on sauvegarde à chaque opération, notre bouton disquette était devenu redondant, il sert maintenant à exporter le fichier de sauvegarde et l'enregistrer ailleurs sur le PC de l'utilisateur.
+
+
 <br><br><br>
 
 # 4. STRUCTURE DU PROJET
-
 
 Pour le detail complet de l'architecture et l'arborescence des fichiers, veuillez consulter le fichier:
 <br>  
