@@ -61,10 +61,27 @@ Une fenetre de bureau native s'ouvrira avec l'interface Vue.js.
 # 3. FONCTIONNALITES DU TP2 + TP3 (mise à jour consolidée)
 
 
-## 1. Navigation a 3 Vues :
-   * Accueil (AccueilView.vue) : Page principale affichant la couleur sélectionnée et des sliders pour la changer en plus d'un menu d'ajout de couleur à une palette.
-   * Palettes (PalettesView.vue) : Affichage de la collection complete de palettes avec options de filtrage et de recherche.
-   * Utilitaires (UtilitairesView.vue) : Outil interactif de conversion et selection de couleurs lié à la couleur sélectionnée par le picker. Permet de rapidement voir la couleur complémentaire et aussi les deux autres couleurs de la triade.
+## 1. Survol de la navigation a 3 Vues :
+   * Une barre de navigation accessible de toutes les pages:
+     * Un bouton color picker qui permet de sélectionner une couleur sur l'écran de l'utilisateur.
+     * Un bouton de navigation ouvrant la page Palettes.
+     * Un bouton de sauvegarde qui permet d'exporter les données au format .json.
+     * Un bouton de navigation ouvrant la page Utilitaires.
+   * Accueil (AccueilView.vue) : Page principale affichant la couleur sélectionnée et offrant des opérations quant à celles-ci:
+     * Des sliders permettent de modifier les valeurs rouge, bleu et vert de la couleur sélectionnée.
+     * Un double-click sur le code hex de la couleur sélectionnée l'envoie au presse-papier.
+     * Un formulaire d'ajout à une palette nécessitant un nom et un choix de palette. L'ajout se fait avec le bouton "+".
+   * Palettes (PalettesView.vue) : Affichage de la collection complete de palettes:
+     * Une liste des palettes enregistrées.
+     * Sélectionner une palette montre les couleurs enregistrées dedans.
+     * Un bouton pour supprimer une palette.
+     * Un bouton pour renommer une palette.
+     * Sélectionner une couleur dans une palette copie son code hex au presse-papier et la sélectionne comme couleur sélectionnée.
+     * Un formulaire en bas de la section des couleurs permet de renommer une couleur sélectionnée ou de la supprimer de la palette.
+     * Un champ de recherche en haut de la page permet de chercher le nom d'une couleur et d'afficher seulement les palettes qui contiennent cette couleur.
+   * Utilitaires (UtilitairesView.vue) : Outil interactif de conversion et selection de couleurs lié à la couleur sélectionnée:
+     * Un bouton couleur complémentaire affiche la couleur complémentaire, son code hex et copie au presse-papier sa valeur lorsque cliqué.
+     * Deux boutons affichent les 2 autres couleurs qui composent la triade de la couleur sélectionnée, leur code hex et copie au presse-papier leur valeur lorsque cliqués.
 
 ## 2. Gestion des Donnees:
    * La fonction charger de stockage.rs charge le fichier de sauvegarde. Si il n'est pas trouvé des données d'exemples sont chargées. Ces données proviennent de src-tauri/data/palettes_exemple.json
